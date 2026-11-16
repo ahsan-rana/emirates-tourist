@@ -11,6 +11,8 @@ ET.LANGS = {
 
 ET.I18N = {
 ar: {
+"Sign in":"تسجيل الدخول","Create account":"إنشاء حساب","Continue with Google":"المتابعة عبر Google","Password":"كلمة المرور","Forgot password?":"نسيت كلمة المرور؟","Sign out":"تسجيل الخروج","My bookings":"حجوزاتي","Saved tours":"الجولات المحفوظة","or":"أو","Already have an account?":"لديك حساب بالفعل؟","Sign in / Create account":"تسجيل الدخول / إنشاء حساب","Reset password":"إعادة تعيين كلمة المرور","Send reset link":"إرسال رابط إعادة التعيين","Back to sign in":"العودة لتسجيل الدخول","Your name":"اسمك","Your password":"كلمة مرورك","At least 8 characters":"8 أحرف على الأقل","No bookings yet":"لا توجد حجوزات بعد",
+"Search":"بحث","See all 140+ experiences":"عرض أكثر من 140 تجربة","Read article":"اقرأ المقال",
 "Home":"الرئيسية","Tours & Experiences":"الجولات والتجارب","Hotels":"الفنادق","Rent a Car":"استئجار سيارة","Trip Planner":"مخطط الرحلة","Travel Guide":"دليل السفر","Contact":"اتصل بنا",
 "Plan my trip":"خطط رحلتي","Partner login":"دخول الشركاء","Careers":"الوظائف","Security services":"خدمات الأمن","WhatsApp us":"راسلنا على واتساب",
 "24/7 support in English, Arabic, Hindi, Urdu, Chinese & Russian":"دعم على مدار الساعة بالإنجليزية والعربية والهندية والأردية والصينية والروسية",
@@ -64,6 +66,8 @@ ar: {
 "Prices now in AED":"الأسعار الآن بالدرهم","Prices now in USD":"الأسعار الآن بالدولار","Saved to your wishlist ♥":"حُفظ في قائمة أمنياتك ♥","Removed from wishlist":"أُزيل من قائمة الأمنيات","Please enter your name":"يرجى إدخال اسمك"
 },
 hi: {
+"Sign in":"साइन इन","Create account":"खाता बनाएँ","Continue with Google":"Google से जारी रखें","Password":"पासवर्ड","Forgot password?":"पासवर्ड भूल गए?","Sign out":"साइन आउट","My bookings":"मेरी बुकिंग","Saved tours":"सहेजे गए टूर","or":"या","Already have an account?":"पहले से खाता है?","Sign in / Create account":"साइन इन / खाता बनाएँ","Reset password":"पासवर्ड रीसेट करें","Send reset link":"रीसेट लिंक भेजें","Back to sign in":"साइन इन पर वापस","Your name":"आपका नाम","Your password":"आपका पासवर्ड","At least 8 characters":"कम से कम 8 अक्षर","No bookings yet":"अभी कोई बुकिंग नहीं",
+"Search":"खोजें","See all 140+ experiences":"सभी 140+ अनुभव देखें","Read article":"लेख पढ़ें",
 "Home":"होम","Tours & Experiences":"टूर और अनुभव","Hotels":"होटल","Rent a Car":"कार किराये पर","Trip Planner":"ट्रिप प्लानर","Travel Guide":"यात्रा गाइड","Contact":"संपर्क",
 "Plan my trip":"मेरी यात्रा प्लान करें","Partner login":"पार्टनर लॉगिन","Careers":"करियर","Security services":"सुरक्षा सेवाएँ","WhatsApp us":"हमें WhatsApp करें",
 "24/7 support in English, Arabic, Hindi, Urdu, Chinese & Russian":"अंग्रेज़ी, अरबी, हिन्दी, उर्दू, चीनी और रूसी में 24/7 सहायता",
@@ -117,6 +121,8 @@ hi: {
 "Prices now in AED":"क़ीमतें अब AED में","Prices now in USD":"क़ीमतें अब USD में","Saved to your wishlist ♥":"विशलिस्ट में सहेजा ♥","Removed from wishlist":"विशलिस्ट से हटाया","Please enter your name":"कृपया अपना नाम लिखें"
 },
 ur: {
+"Sign in":"سائن ان","Create account":"اکاؤنٹ بنائیں","Continue with Google":"Google سے جاری رکھیں","Password":"پاس ورڈ","Forgot password?":"پاس ورڈ بھول گئے؟","Sign out":"سائن آؤٹ","My bookings":"میری بکنگز","Saved tours":"محفوظ ٹورز","or":"یا","Already have an account?":"پہلے سے اکاؤنٹ ہے؟","Sign in / Create account":"سائن ان / اکاؤنٹ بنائیں","Reset password":"پاس ورڈ ری سیٹ کریں","Send reset link":"ری سیٹ لنک بھیجیں","Back to sign in":"سائن ان پر واپس","Your name":"آپ کا نام","Your password":"آپ کا پاس ورڈ","At least 8 characters":"کم از کم 8 حروف","No bookings yet":"ابھی کوئی بکنگ نہیں",
+"Search":"تلاش","See all 140+ experiences":"تمام 140+ تجربات دیکھیں","Read article":"مضمون پڑھیں",
 "Home":"ہوم","Tours & Experiences":"ٹورز اور تجربات","Hotels":"ہوٹل","Rent a Car":"گاڑی کرائے پر","Trip Planner":"ٹرپ پلانر","Travel Guide":"سفری رہنما","Contact":"رابطہ",
 "Plan my trip":"میرا سفر پلان کریں","Partner login":"پارٹنر لاگ ان","Careers":"ملازمتیں","Security services":"سیکیورٹی خدمات","WhatsApp us":"ہمیں واٹس ایپ کریں",
 "24/7 support in English, Arabic, Hindi, Urdu, Chinese & Russian":"انگریزی، عربی، ہندی، اردو، چینی اور روسی میں 24/7 مدد",
@@ -170,6 +176,8 @@ ur: {
 "Prices now in AED":"قیمتیں اب AED میں","Prices now in USD":"قیمتیں اب USD میں","Saved to your wishlist ♥":"وش لسٹ میں محفوظ ♥","Removed from wishlist":"وش لسٹ سے ہٹایا","Please enter your name":"براہ کرم اپنا نام لکھیں"
 },
 zh: {
+"Sign in":"登录","Create account":"创建账户","Continue with Google":"使用 Google 继续","Password":"密码","Forgot password?":"忘记密码？","Sign out":"退出登录","My bookings":"我的预订","Saved tours":"收藏的线路","or":"或","Already have an account?":"已有账户？","Sign in / Create account":"登录 / 创建账户","Reset password":"重置密码","Send reset link":"发送重置链接","Back to sign in":"返回登录","Your name":"您的姓名","Your password":"您的密码","At least 8 characters":"至少 8 个字符","No bookings yet":"暂无预订",
+"Search":"搜索","See all 140+ experiences":"查看全部 140+ 项体验","Read article":"阅读文章",
 "Home":"首页","Tours & Experiences":"旅游与体验","Hotels":"酒店","Rent a Car":"租车","Trip Planner":"行程规划","Travel Guide":"旅行指南","Contact":"联系我们",
 "Plan my trip":"规划我的行程","Partner login":"合作伙伴登录","Careers":"招聘","Security services":"安保服务","WhatsApp us":"WhatsApp联系我们",
 "24/7 support in English, Arabic, Hindi, Urdu, Chinese & Russian":"英语、阿拉伯语、印地语、乌尔都语、中文和俄语 24/7 支持",
@@ -223,6 +231,8 @@ zh: {
 "Prices now in AED":"价格已切换为迪拉姆","Prices now in USD":"价格已切换为美元","Saved to your wishlist ♥":"已加入收藏 ♥","Removed from wishlist":"已从收藏移除","Please enter your name":"请输入姓名"
 },
 ru: {
+"Sign in":"Войти","Create account":"Создать аккаунт","Continue with Google":"Продолжить с Google","Password":"Пароль","Forgot password?":"Забыли пароль?","Sign out":"Выйти","My bookings":"Мои бронирования","Saved tours":"Сохранённые туры","or":"или","Already have an account?":"Уже есть аккаунт?","Sign in / Create account":"Войти / Создать аккаунт","Reset password":"Сброс пароля","Send reset link":"Отправить ссылку","Back to sign in":"Назад ко входу","Your name":"Ваше имя","Your password":"Ваш пароль","At least 8 characters":"Не менее 8 символов","No bookings yet":"Бронирований пока нет",
+"Search":"Найти","See all 140+ experiences":"Все 140+ впечатлений","Read article":"Читать статью",
 "Home":"Главная","Tours & Experiences":"Туры и впечатления","Hotels":"Отели","Rent a Car":"Аренда авто","Trip Planner":"Планировщик","Travel Guide":"Путеводитель","Contact":"Контакты",
 "Plan my trip":"Спланировать поездку","Partner login":"Вход для партнёров","Careers":"Вакансии","Security services":"Охранные услуги","WhatsApp us":"Написать в WhatsApp",
 "24/7 support in English, Arabic, Hindi, Urdu, Chinese & Russian":"Поддержка 24/7 на английском, арабском, хинди, урду, китайском и русском",

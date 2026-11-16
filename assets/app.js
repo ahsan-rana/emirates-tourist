@@ -59,7 +59,7 @@
         </div>
         <div class="cur-toggle"><button data-cur="AED">AED</button><button data-cur="USD">USD</button></div>
         <button class="iconbtn" id="themeBtn" title="Toggle dark mode">🌙</button>
-        <button class="iconbtn" id="wishBtn" title="Wishlist">${ET.icon("heart")}<span id="wishCount" style="font-size:11px;margin-left:2px"></span></button>
+        <div class="account" id="account"></div>
         <a class="btn btn-primary btn-sm" href="planner.html">Plan my trip</a>
         <button class="iconbtn burger" id="burger">${ET.icon("menu")}</button>
       </div>
@@ -69,6 +69,7 @@
     <button class="iconbtn close" id="closeMenu">${ET.icon("x")}</button>
     ${links.map(([h, t]) => `<a href="${h}">${t}</a>`).join("")}
     <a href="https://wa.me/971554439551" target="_blank">WhatsApp us</a>
+    <div class="mobile-account" id="mobileAccount"></div>
     <div class="mobile-lang-head">${ET.icon("globe",16)} Language</div>
     <div class="mobile-lang">${Object.entries(ET.LANGS).map(([k,v])=>`<button type="button" data-lang="${k}" aria-selected="${k===ET.lang}"><span class="lang-code">${v.code}</span><span class="lang-names"><b lang="${k}">${v.name}</b><small>${v.label}</small></span></button>`).join("")}</div>
   </div>`;
@@ -97,8 +98,7 @@
         <li>${ET.icon('phone')} <a href="tel:+971554439551">+971 55 443 9551</a></li>
         <li>${ET.icon('whatsapp')} <a href="https://wa.me/971554439551" target="_blank">WhatsApp 24/7</a></li>
         <li>${ET.icon('mail')} <a href="mailto:info@emiratestourist.com">info@emiratestourist.com</a></li>
-        <li>${ET.icon('map-pin')} Dubai, United Arab Emirates</li>
-        <li>${ET.icon('map-pin')} 1207 Delaware Ave #2886, Wilmington, DE 19806</li></ul>
+        <li>${ET.icon('map-pin')} Opal Tower, Office 1408, Burj Khalifa Boulevard, Business Bay, Dubai, UAE</li></ul>
         <div class="socials" style="margin-top:14px"><a href="#" title="Facebook" aria-label="Facebook">${ET.icon("facebook",16)}</a><a href="#" title="Instagram" aria-label="Instagram">${ET.icon("instagram",16)}</a><a href="#" title="X" aria-label="X">${ET.icon("x-social",15)}</a><a href="#" title="TikTok" aria-label="TikTok">${ET.icon("tiktok",16)}</a><a href="#" title="YouTube" aria-label="YouTube">${ET.icon("youtube",16)}</a></div>
       </div>
     </div>
@@ -130,6 +130,70 @@
   document.addEventListener("et:lang", syncLangUI); syncLangUI();
   (() => { const p = location.pathname.split("/").pop() || "index.html"; $$(".menu a").forEach((l) => l.classList.toggle("active", l.getAttribute("href") === p || (p === "article.html" && l.getAttribute("href") === "blog.html") || (p === "tour.html" && l.getAttribute("href") === "tours.html"))); })();
 
+  /* ---------- account / auth UI ---------- */
+  const renderAccount = (u) => {
+    const slot = $("#account"), mob = $("#mobileAccount");
+    if (!u) {
+      slot.innerHTML = `<button class="btn btn-ghost btn-sm" id="signInBtn">${ET.icon("user-round", 16)} Sign in</button>`;
+      mob.innerHTML = `<button class="btn btn-dark btn-block" data-auth="signin">${ET.icon("user-round", 16)} Sign in / Create account</button>`;
+    } else {
+      const av = u.photo ? `<img src="${u.photo}" alt="" referrerpolicy="no-referrer">` : ET.auth.initials(u);
+      slot.innerHTML = `<div class="acct"><button class="acct-btn" id="acctBtn" aria-haspopup="menu" aria-expanded="false"><span class="avatar">${av}</span><span class="acct-name">${u.name.split(" ")[0]}</span>${ET.icon("chevron-down", 14, "chev")}</button>
+        <div class="acct-menu" role="menu"><div class="acct-head"><span class="avatar lg">${av}</span><div><b>${u.name}</b><small>${u.email}</small></div></div>
+        <button role="menuitem" data-acct="bookings">${ET.icon("ticket", 16)} My bookings</button><button role="menuitem" data-acct="saved">${ET.icon("heart", 16)} Saved tours</button><button role="menuitem" data-acct="out">${ET.icon("log-out", 16)} Sign out</button></div></div>`;
+      mob.innerHTML = `<div class="acct-head"><span class="avatar lg">${av}</span><div><b>${u.name}</b><small>${u.email}</small></div></div><div style="display:grid;gap:6px;grid-template-columns:1fr 1fr"><button class="btn btn-ghost btn-sm" data-acct="bookings">My bookings</button><button class="btn btn-ghost btn-sm" data-acct="out">Sign out</button></div>`;
+    }
+    const sb = $("#signInBtn"); if (sb) sb.onclick = () => ET.openAuth("signin");
+    $$("[data-auth]").forEach((b) => b.onclick = () => { $("#mobileMenu").classList.remove("open"); ET.openAuth(b.dataset.auth); });
+    const ab = $("#acctBtn"); if (ab) { ab.onclick = (e) => { e.stopPropagation(); const o = !ab.parentElement.classList.contains("open"); ab.parentElement.classList.toggle("open", o); ab.setAttribute("aria-expanded", o); }; document.addEventListener("click", (e) => { if (!ab.parentElement.contains(e.target)) ab.parentElement.classList.remove("open"); }); }
+    $$("[data-acct]").forEach((b) => b.onclick = async () => {
+      $("#mobileMenu").classList.remove("open"); $$(".acct.open").forEach((x) => x.classList.remove("open"));
+      if (b.dataset.acct === "out") { await ET.auth.signOut(); ET.toast("Signed out. See you soon!"); }
+      if (b.dataset.acct === "saved") { const items = [...ET.wishlist].map((id) => ET.byId(ET.tours, id)).filter(Boolean); ET.openModal("Saved tours", items.length ? `<div style="display:grid;gap:10px">${items.map((t) => `<a href="tour.html?id=${t.id}" style="display:flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px"><img src="${t.img}" style="width:70px;height:54px;object-fit:cover;border-radius:8px" ${ET.imgFallback}><div><b style="font-size:14px">${t.title}</b><div class="muted" style="font-size:13px">${ET.emirateName(t.emirate)} · ${ET.money(t.price)}</div></div></a>`).join("")}</div>` : `<p class="muted">Tap the heart on any tour to save it here.</p>`); }
+      if (b.dataset.acct === "bookings") { const l = ET.auth.bookings(); ET.openModal("My bookings", l.length ? `<div style="display:grid;gap:10px">${l.map((k) => `<div style="border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;gap:12px;align-items:center"><div><b style="font-size:14px">${k.title}</b><div class="muted" style="font-size:13px">${new Date(k.date).toDateString()} · ${k.pax} · Ref ${k.ref}</div></div><span class="badge badge-gold">${k.status}</span></div>`).join("")}</div>` : `<div class="success" style="padding:10px 0"><div style="color:var(--gold)">${ET.icon("ticket", 44)}</div><b>No bookings yet</b><p class="muted" style="margin-top:6px">Bookings you make while signed in appear here.</p><a class="btn btn-dark" href="tours.html" style="margin-top:14px">Browse tours</a></div>`); }
+    });
+  };
+  ET.auth.onChange(renderAccount);
+
+  ET.openAuth = (mode = "signin") => {
+    const demoNote = ET.auth.mode === "demo" ? `<div class="auth-note">${ET.icon("shield-check", 14)} Demo mode: accounts are stored in this browser only. Add Firebase keys to go live.</div>` : "";
+    const render = () => {
+      const isUp = mode === "signup", isReset = mode === "reset";
+      $("#modalTitle").textContent = isReset ? "Reset password" : isUp ? "Create account" : "Sign in";
+      $("#modalBody").innerHTML = `
+        ${isReset ? "" : `<div class="auth-tabs"><button class="${!isUp ? "on" : ""}" data-m="signin">Sign in</button><button class="${isUp ? "on" : ""}" data-m="signup">Create account</button></div>
+        <button class="btn btn-ghost btn-block btn-google" id="gBtn">${ET.icon("google", 18)} Continue with Google</button>
+        <div class="auth-or"><span>or</span></div>`}
+        <form class="form auth-form" id="authForm" novalidate>
+          ${isUp ? `<div class="field"><label>Full name</label><input id="aName" autocomplete="name" placeholder="Your name"></div>` : ""}
+          <div class="field"><label>Email</label><input id="aEmail" type="email" autocomplete="email" placeholder="you@gmail.com"></div>
+          ${isReset ? "" : `<div class="field pw"><label>Password</label><input id="aPass" type="password" autocomplete="${isUp ? "new-password" : "current-password"}" placeholder="${isUp ? "At least 8 characters" : "Your password"}"><button type="button" class="pw-toggle" id="pwT" aria-label="Show password">${ET.icon("eye", 16)}</button></div>`}
+          <div class="auth-err" id="aErr" hidden></div>
+          <button class="btn btn-primary btn-block" id="aGo">${isReset ? "Send reset link" : isUp ? "Create account" : "Sign in"}</button>
+          ${isReset ? `<button type="button" class="auth-link" data-m="signin">Back to sign in</button>` : isUp ? `<div class="auth-foot">Already have an account? <button type="button" class="auth-link" data-m="signin">Sign in</button></div>` : `<div class="auth-foot"><button type="button" class="auth-link" data-m="reset">Forgot password?</button></div>`}
+        </form>
+        ${demoNote}
+        <small class="muted" style="text-align:center;display:block">By continuing you agree to our terms of service and privacy policy.</small>`;
+      $$("[data-m]").forEach((b) => b.onclick = () => { mode = b.dataset.m; render(); });
+      const pwT = $("#pwT"); if (pwT) pwT.onclick = () => { const i = $("#aPass"); i.type = i.type === "password" ? "text" : "password"; pwT.innerHTML = ET.icon(i.type === "password" ? "eye" : "eye-off", 16); };
+      const fail = (m) => { const e = $("#aErr"); e.textContent = m; e.hidden = false; };
+      const busy = (b) => { const g = $("#aGo"); g.disabled = b; g.style.opacity = b ? .6 : 1; };
+      const done = (u, msg) => { ET.closeModal(); ET.toast(msg || `Welcome, ${u.name.split(" ")[0]}!`); };
+      const gb = $("#gBtn"); if (gb) gb.onclick = async () => { try { gb.disabled = true; const u = await ET.auth.signInGoogle(); done(u); } catch (e) { fail(e.friendly ? e.message : "Google sign-in failed. Please try again."); gb.disabled = false; } };
+      $("#authForm").onsubmit = async (ev) => {
+        ev.preventDefault(); $("#aErr").hidden = true; busy(true);
+        try {
+          if (isReset) { await ET.auth.reset($("#aEmail").value); mode = "signin"; render(); ET.toast("If that email exists, a reset link is on its way."); return; }
+          const u = isUp ? await ET.auth.signUp($("#aName").value, $("#aEmail").value, $("#aPass").value) : await ET.auth.signInEmail($("#aEmail").value, $("#aPass").value);
+          done(u, isUp ? `Account created. Welcome, ${u.name.split(" ")[0]}!` : undefined);
+        } catch (e) { fail(e.friendly ? e.message : "Something went wrong. Please try again."); } finally { busy(false); }
+      };
+      setTimeout(() => ($("#aName") || $("#aEmail")).focus(), 50);
+    };
+    ET.openModal("Sign in", ""); render();
+  };
+  document.addEventListener("click", (e) => { const t = e.target.closest("[data-open-auth]"); if (t) { e.preventDefault(); ET.openAuth(t.dataset.openAuth || "signin"); } });
+
   /* ---------- theme ---------- */
   const applyTheme = (t) => { document.documentElement.dataset.theme = t; $("#themeBtn").innerHTML = t === "dark" ? ET.icon("sun") : ET.icon("moon"); };
   applyTheme(store.get("theme", "light"));
@@ -150,12 +214,12 @@
   document.addEventListener("click", (e) => { const a = e.target.closest("[data-toast]"); if (a) { e.preventDefault(); ET.toast(a.dataset.toast); } });
 
   /* ---------- wishlist ---------- */
-  const syncWish = () => { $("#wishCount").textContent = ET.wishlist.size || ""; $$(".heart").forEach((h) => h.classList.toggle("on", ET.wishlist.has(h.dataset.id))); };
+  const syncWish = () => { const wc = $("#wishCount"); if (wc) wc.textContent = ET.wishlist.size || ""; $$(".heart").forEach((h) => h.classList.toggle("on", ET.wishlist.has(h.dataset.id))); };
   ET.toggleWish = (id) => { ET.wishlist.has(id) ? ET.wishlist.delete(id) : ET.wishlist.add(id); store.set("wish", [...ET.wishlist]); syncWish(); ET.toast(ET.wishlist.has(id) ? "Saved to your wishlist ♥" : "Removed from wishlist"); };
   document.addEventListener("click", (e) => { const h = e.target.closest(".heart"); if (h) { e.preventDefault(); e.stopPropagation(); ET.toggleWish(h.dataset.id); } });
-  $("#wishBtn").onclick = () => {
+  const wishBtn = $("#wishBtn"); if (wishBtn) wishBtn.onclick = () => {
     const items = [...ET.wishlist].map((id) => ET.byId(ET.tours, id)).filter(Boolean);
-    ET.openModal("Your wishlist", items.length ? `<div style="display:grid;gap:10px">${items.map((t) => `<a href="tour.html?id=${t.id}" style="display:flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px"><img src="${t.img}" style="width:70px;height:54px;object-fit:cover;border-radius:8px" ${ET.imgFallback}><div><b style="font-size:14px">${t.title}</b><div class="muted" style="font-size:13px">${ET.emirateName(t.emirate)} · ${ET.money(t.price)}</div></div></a>`).join("")}</div>` : `<p class="muted">Tap the ♡ on any tour to save it here.</p>`);
+    ET.openModal("Your wishlist", items.length ? items.map((t) => `<a href="tour.html?id=${t.id}">${t.title}</a>`).join("<br>") : "<p class=\"muted\">Tap the ♡ on any tour to save it here.</p>");
   };
   document.addEventListener("et:rendered", syncWish);
   syncWish();
@@ -192,7 +256,8 @@
           <div class="tot"><span>Total</span><span>${ET.money(sub)}</span></div>
           <small class="muted">✓ Free cancellation up to 24 h before · ✓ Reserve now, pay later · ✓ Instant confirmation</small>
         </div>
-        <div class="row"><input class="field" style="padding:12px 14px" id="bName" placeholder="Full name"><input class="field" style="padding:12px 14px" id="bPhone" placeholder="WhatsApp number"></div>
+        <div class="row"><input class="field" style="padding:12px 14px" id="bName" placeholder="Full name" value="${ET.auth.user ? ET.auth.user.name : ""}"><input class="field" style="padding:12px 14px" id="bPhone" placeholder="WhatsApp number"></div>
+        ${ET.auth.user ? `<small class="muted">Booking as <b>${ET.auth.user.email}</b>. It will appear in My bookings.</small>` : `<small class="muted"><a href="#" data-open-auth="signin" style="color:var(--navy);text-decoration:underline">Sign in</a> to track this booking in your account (optional).</small>`}
         <button class="btn btn-primary btn-block" id="bConfirm">Confirm booking · ${ET.money(sub)}</button>`;
       $$("[data-q]").forEach((b) => b.onclick = () => { st[b.dataset.q] = Math.max(b.dataset.q === "adults" ? 1 : 0, Math.min(12, st[b.dataset.q] + +b.dataset.d)); render(); });
       $("#bDate").onchange = (e) => (st.date = e.target.value);
@@ -200,6 +265,7 @@
         const name = $("#bName").value.trim();
         if (!name) { ET.toast("Please enter your name"); $("#bName").focus(); return; }
         const ref = "ET-" + Math.random().toString(36).slice(2, 8).toUpperCase();
+        ET.auth.addBooking({ ref, id: t.id, title: t.title, date: st.date, pax: `${st.adults} adults${st.children ? ", " + st.children + " children" : ""}`, total: sub, status: "Confirmed", created: Date.now() });
         $("#modalBody").innerHTML = `<div class="success"><div class="ic">${ET.icon("check", 34)}</div><h3 style="font-size:24px;margin-bottom:8px">You're booked, ${name.split(" ")[0]}!</h3><p class="muted">Reference <b>${ref}</b>. We've sent your e-ticket and a WhatsApp confirmation. Your guide will message you the evening before.</p><div class="summary" style="text-align:left;margin:18px 0"><div><b>${t.title}</b></div><div>${new Date(st.date).toDateString()} · ${st.adults} adults${st.children ? ", " + st.children + " children" : ""}</div><div class="tot"><span>Paid</span><span>${ET.money(sub)}</span></div></div><button class="btn btn-dark" onclick="ET.closeModal()">Done</button></div>`;
       };
     };
@@ -215,7 +281,7 @@
         ${t.badge ? `<span class="badge badge-gold">${t.badge}</span>` : ""}
         <button class="heart" data-id="${t.id}" title="Save">${ET.icon("heart", 16)}</button></div>
       <div class="body">
-        <div class="meta"><span>${ET.icon('map-pin')} ${ET.emirateName(t.emirate)}</span><span>${ET.icon('clock')} ${t.duration}</span>${t.pickup ? "<span>${ET.icon('bus')} Pickup</span>" : ""}</div>
+        <div class="meta"><span>${ET.icon('map-pin')} ${ET.emirateName(t.emirate)}</span><span>${ET.icon('clock')} ${t.duration}</span>${t.pickup ? "<span>" + ET.icon("bus") + " Pickup</span>" : ""}</div>
         <h3>${t.title}</h3>
         <div class="rating"><span class="stars">${ET.stars(t.rating)}</span><b>${t.rating}</b><span class="muted">(${t.reviews.toLocaleString()} reviews)</span></div>
         <div class="foot"><div class="price"><small>from, per adult</small><b>${ET.money(t.price)}</b>${t.was ? `<s>${ET.money(t.was)}</s>` : ""}</div><span class="btn btn-dark btn-sm" data-book="${t.id}">Book now</span></div>
@@ -267,6 +333,10 @@
     return out;
   };
 
+  /* ---------- arrows in buttons -> icons ---------- */
+  ET.arrowify = () => $$(".btn").forEach((b) => { for (const n of [...b.childNodes]) { if (n.nodeType === 3 && /\s*(→|←)\s*$/.test(n.nodeValue)) { n.nodeValue = n.nodeValue.replace(/\s*(→|←)\s*$/, ""); n.__en = n.nodeValue; b.insertAdjacentHTML("beforeend", ET.icon("arrow-right", 16, "arrow")); } } });
+  ET.arrowify(); document.addEventListener("et:rendered", ET.arrowify);
+
   /* ---------- reveal on scroll ---------- */
   const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .08 });
   ET.observe = () => $$(".reveal:not(.in)").forEach((el) => io.observe(el));
@@ -279,7 +349,7 @@
     const base = "https://emiratestourist.com/";
     const org = { "@type": "TravelAgency", "@id": base + "#org", name: "Emirates Tourist", url: base, logo: base + "assets/img/logo.webp", image: base + "assets/img/dubai-skyline-sunset.webp",
       telephone: "+971554439551", email: "info@emiratestourist.com", priceRange: "AED 85 - AED 2,500",
-      address: { "@type": "PostalAddress", addressLocality: "Dubai", addressCountry: "AE" },
+      address: { "@type": "PostalAddress", streetAddress: "Opal Tower, Office 1408, Burj Khalifa Boulevard, Business Bay", addressLocality: "Dubai", addressCountry: "AE" },
       areaServed: ["Dubai", "Abu Dhabi", "Sharjah", "Ajman", "Umm Al Quwain", "Ras Al Khaimah", "Fujairah", "Al Ain"],
       availableLanguage: ["English", "Arabic", "Hindi", "Urdu", "Chinese", "Russian"],
       contactPoint: { "@type": "ContactPoint", telephone: "+971554439551", contactType: "customer service", availableLanguage: ["en", "ar", "hi", "ur", "zh", "ru"], hoursAvailable: "Mo-Su 00:00-23:59" },
