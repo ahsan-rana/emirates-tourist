@@ -28,15 +28,15 @@
   const page = location.pathname.split("/").pop() || "index.html";
   const links = [
     ["index.html", "Home"], ["tours.html", "Tours & Experiences"], ["hotels.html", "Hotels"],
-    ["cars.html", "Rent a Car"], ["planner.html", "Trip Planner"], ["guide.html", "Travel Guide"], ["contact.html", "Contact"]
+    ["cars.html", "Rent a Car"], ["planner.html", "Trip Planner"], ["guide.html", "Travel Guide"], ["blog.html", "Blog"], ["contact.html", "Contact"]
   ];
   const navHTML = `
   <div class="topbar">
     <div class="container">
       <div class="left">
-        <a href="tel:+971554439551">📞 +971 55 443 9551</a>
-        <a href="mailto:info@emiratestourist.com">✉️ info@emiratestourist.com</a>
-        <span>🕐 24/7 support in English, Arabic, Hindi, Urdu, Chinese & Russian</span>
+        <a href="tel:+971554439551">${ET.icon('phone')} +971 55 443 9551</a>
+        <a href="mailto:info@emiratestourist.com">${ET.icon('mail')} info@emiratestourist.com</a>
+        <span>${ET.icon('clock')} 24/7 support in English, Arabic, Hindi, Urdu, Chinese & Russian</span>
       </div>
       <div class="right">
         <a href="#" data-toast="Partner portal is coming soon">Partner login</a>
@@ -50,18 +50,20 @@
       <a class="brand" href="index.html"><img src="assets/img/logo.webp" alt="Emirates Tourist - سائح الإمارات"></a>
       <nav class="menu">${links.map(([h, t]) => `<a href="${h}" class="${page === h ? "active" : ""}">${t}</a>`).join("")}</nav>
       <div class="actions">
+        <label class="lang"><span>${ET.icon("globe",16)}</span><select id="langSel" aria-label="Language">${Object.entries(ET.LANGS).map(([k,v])=>`<option value="${k}">${v.name}</option>`).join("")}</select></label>
         <div class="cur-toggle"><button data-cur="AED">AED</button><button data-cur="USD">USD</button></div>
         <button class="iconbtn" id="themeBtn" title="Toggle dark mode">🌙</button>
-        <button class="iconbtn" id="wishBtn" title="Wishlist">♡<span id="wishCount" style="font-size:11px;margin-left:2px"></span></button>
+        <button class="iconbtn" id="wishBtn" title="Wishlist">${ET.icon("heart")}<span id="wishCount" style="font-size:11px;margin-left:2px"></span></button>
         <a class="btn btn-primary btn-sm" href="planner.html">Plan my trip</a>
-        <button class="iconbtn burger" id="burger">☰</button>
+        <button class="iconbtn burger" id="burger">${ET.icon("menu")}</button>
       </div>
     </div>
   </header>
   <div class="mobile-menu" id="mobileMenu">
-    <button class="iconbtn close" id="closeMenu">✕</button>
+    <button class="iconbtn close" id="closeMenu">${ET.icon("x")}</button>
     ${links.map(([h, t]) => `<a href="${h}">${t}</a>`).join("")}
     <a href="https://wa.me/971554439551" target="_blank">WhatsApp us</a>
+    <div class="mobile-lang">${Object.entries(ET.LANGS).map(([k,v])=>`<button class="chip" data-lang="${k}">${v.name}</button>`).join("")}</div>
   </div>`;
 
   const footerHTML = `
@@ -77,7 +79,7 @@
         <li><a href="tours.html?emirate=abu-dhabi">Abu Dhabi</a></li><li><a href="hotels.html">Hotels & resorts</a></li>
         <li><a href="cars.html">Car rental</a></li></ul></div>
       <div><h4>Company</h4><ul>
-        <li><a href="guide.html">Travel guide</a></li><li><a href="index.html#blog">Blog</a></li>
+        <li><a href="guide.html">Travel guide</a></li><li><a href="blog.html">Blog</a></li>
         <li><a href="contact.html#careers">Careers</a></li><li><a href="contact.html">Contact</a></li>
         <li><a href="#" data-toast="Trust & Safety page coming soon">Trust & safety</a></li></ul></div>
       <div><h4>Support</h4><ul>
@@ -85,12 +87,12 @@
         <li><a href="#" data-toast="Privacy policy">Privacy policy</a></li><li><a href="#" data-toast="Terms of service">Terms of service</a></li>
         <li><a href="#" data-toast="Return policy">Return policy</a></li></ul></div>
       <div><h4>Contact</h4><ul>
-        <li>📞 <a href="tel:+971554439551">+971 55 443 9551</a></li>
-        <li>💬 <a href="https://wa.me/971554439551" target="_blank">WhatsApp 24/7</a></li>
-        <li>✉️ <a href="mailto:info@emiratestourist.com">info@emiratestourist.com</a></li>
-        <li>📍 Dubai, United Arab Emirates</li>
-        <li>📍 1207 Delaware Ave #2886, Wilmington, DE 19806</li></ul>
-        <div class="socials" style="margin-top:14px"><a href="#" title="Facebook">f</a><a href="#" title="Instagram">ig</a><a href="#" title="X">x</a><a href="#" title="TikTok">tt</a><a href="#" title="YouTube">yt</a></div>
+        <li>${ET.icon('phone')} <a href="tel:+971554439551">+971 55 443 9551</a></li>
+        <li>${ET.icon('whatsapp')} <a href="https://wa.me/971554439551" target="_blank">WhatsApp 24/7</a></li>
+        <li>${ET.icon('mail')} <a href="mailto:info@emiratestourist.com">info@emiratestourist.com</a></li>
+        <li>${ET.icon('map-pin')} Dubai, United Arab Emirates</li>
+        <li>${ET.icon('map-pin')} 1207 Delaware Ave #2886, Wilmington, DE 19806</li></ul>
+        <div class="socials" style="margin-top:14px"><a href="#" title="Facebook" aria-label="Facebook">${ET.icon("facebook",16)}</a><a href="#" title="Instagram" aria-label="Instagram">${ET.icon("instagram",16)}</a><a href="#" title="X" aria-label="X">${ET.icon("x-social",15)}</a><a href="#" title="TikTok" aria-label="TikTok">${ET.icon("tiktok",16)}</a><a href="#" title="YouTube" aria-label="YouTube">${ET.icon("youtube",16)}</a></div>
       </div>
     </div>
     <div class="container bottom">
@@ -98,15 +100,21 @@
       <span>Prices shown in ${ET.currency}. Savings compared to our lowest retail rate for the same itinerary.</span>
     </div>
   </footer>
-  <a class="wa" href="https://wa.me/971554439551?text=Hi%20Emirates%20Tourist%2C%20I%27d%20like%20help%20planning%20my%20UAE%20trip" target="_blank" title="Chat on WhatsApp">💬</a>
+  <a class="wa" href="https://wa.me/971554439551?text=Hi%20Emirates%20Tourist%2C%20I%27d%20like%20help%20planning%20my%20UAE%20trip" target="_blank" title="Chat on WhatsApp" aria-label="Chat on WhatsApp">${ET.icon("whatsapp", 30)}</a>
   <div class="toast" id="toast"></div>
-  <div class="modal" id="modal"><div class="box"><div class="head"><h3 id="modalTitle"></h3><button class="iconbtn" id="modalClose">✕</button></div><div class="content" id="modalBody"></div></div></div>`;
+  <div class="modal" id="modal"><div class="box"><div class="head"><h3 id="modalTitle"></h3><button class="iconbtn" id="modalClose">${ET.icon("x")}</button></div><div class="content" id="modalBody"></div></div></div>`;
 
   document.body.insertAdjacentHTML("afterbegin", navHTML);
   document.body.insertAdjacentHTML("beforeend", footerHTML);
 
+  /* ---------- language ---------- */
+  const langSel = $("#langSel");
+  if (langSel) { langSel.value = ET.lang; langSel.onchange = () => ET.applyLang(langSel.value); }
+  $$("[data-lang]").forEach((b) => b.onclick = () => { ET.applyLang(b.dataset.lang); $("#mobileMenu").classList.remove("open"); });
+  (() => { const p = location.pathname.split("/").pop() || "index.html"; $$(".menu a").forEach((l) => l.classList.toggle("active", l.getAttribute("href") === p || (p === "article.html" && l.getAttribute("href") === "blog.html") || (p === "tour.html" && l.getAttribute("href") === "tours.html"))); })();
+
   /* ---------- theme ---------- */
-  const applyTheme = (t) => { document.documentElement.dataset.theme = t; $("#themeBtn").textContent = t === "dark" ? "☀️" : "🌙"; };
+  const applyTheme = (t) => { document.documentElement.dataset.theme = t; $("#themeBtn").innerHTML = t === "dark" ? ET.icon("sun") : ET.icon("moon"); };
   applyTheme(store.get("theme", "light"));
   $("#themeBtn").onclick = () => { const t = document.documentElement.dataset.theme === "dark" ? "light" : "dark"; store.set("theme", t); applyTheme(t); };
 
@@ -151,7 +159,7 @@
       const sub = st.adults * t.price + st.children * t.price * 0.7;
       const disc = t.was ? Math.round((1 - t.price / t.was) * 100) : 0;
       $("#modalBody").innerHTML = `
-        <div style="display:flex;gap:14px;align-items:center"><img src="${t.img}" style="width:90px;height:68px;object-fit:cover;border-radius:10px" ${ET.imgFallback}><div><b>${t.title}</b><div class="muted" style="font-size:13px">${ET.emirateName(t.emirate)} · ${t.duration} · ⭐ ${t.rating}</div></div></div>
+        <div style="display:flex;gap:14px;align-items:center"><img src="${t.img}" style="width:90px;height:68px;object-fit:cover;border-radius:10px" ${ET.imgFallback}><div><b>${t.title}</b><div class="muted" style="font-size:13px">${ET.emirateName(t.emirate)} · ${t.duration} · ${ET.icon('star')} ${t.rating}</div></div></div>
         <div class="row">
           <div class="field"><label>Date</label><input type="date" id="bDate" value="${st.date}" min="${new Date().toISOString().slice(0, 10)}"></div>
           <div class="field"><label>Pickup</label><select id="bPick"><option ${st.pickup ? "selected" : ""}>Hotel pickup (included)</option><option ${!st.pickup ? "selected" : ""}>Meet at location</option></select></div>
@@ -175,7 +183,7 @@
         const name = $("#bName").value.trim();
         if (!name) { ET.toast("Please enter your name"); $("#bName").focus(); return; }
         const ref = "ET-" + Math.random().toString(36).slice(2, 8).toUpperCase();
-        $("#modalBody").innerHTML = `<div class="success"><div class="ic">✓</div><h3 style="font-size:24px;margin-bottom:8px">You're booked, ${name.split(" ")[0]}!</h3><p class="muted">Reference <b>${ref}</b>. We've sent your e-ticket and a WhatsApp confirmation. Your guide will message you the evening before.</p><div class="summary" style="text-align:left;margin:18px 0"><div><b>${t.title}</b></div><div>${new Date(st.date).toDateString()} · ${st.adults} adults${st.children ? ", " + st.children + " children" : ""}</div><div class="tot"><span>Paid</span><span>${ET.money(sub)}</span></div></div><button class="btn btn-dark" onclick="ET.closeModal()">Done</button></div>`;
+        $("#modalBody").innerHTML = `<div class="success"><div class="ic">${ET.icon("check", 34)}</div><h3 style="font-size:24px;margin-bottom:8px">You're booked, ${name.split(" ")[0]}!</h3><p class="muted">Reference <b>${ref}</b>. We've sent your e-ticket and a WhatsApp confirmation. Your guide will message you the evening before.</p><div class="summary" style="text-align:left;margin:18px 0"><div><b>${t.title}</b></div><div>${new Date(st.date).toDateString()} · ${st.adults} adults${st.children ? ", " + st.children + " children" : ""}</div><div class="tot"><span>Paid</span><span>${ET.money(sub)}</span></div></div><button class="btn btn-dark" onclick="ET.closeModal()">Done</button></div>`;
       };
     };
     ET.openModal("Book this experience", "");
@@ -188,9 +196,9 @@
     <a class="card reveal" href="tour.html?id=${t.id}">
       <div class="media"><img src="${t.img}" alt="${t.title}" loading="lazy" ${ET.imgFallback}>
         ${t.badge ? `<span class="badge badge-gold">${t.badge}</span>` : ""}
-        <button class="heart" data-id="${t.id}" title="Save">♥</button></div>
+        <button class="heart" data-id="${t.id}" title="Save">${ET.icon("heart", 16)}</button></div>
       <div class="body">
-        <div class="meta"><span>📍 ${ET.emirateName(t.emirate)}</span><span>⏱ ${t.duration}</span>${t.pickup ? "<span>🚐 Pickup</span>" : ""}</div>
+        <div class="meta"><span>${ET.icon('map-pin')} ${ET.emirateName(t.emirate)}</span><span>${ET.icon('clock')} ${t.duration}</span>${t.pickup ? "<span>${ET.icon('bus')} Pickup</span>" : ""}</div>
         <h3>${t.title}</h3>
         <div class="rating"><span class="stars">${ET.stars(t.rating)}</span><b>${t.rating}</b><span class="muted">(${t.reviews.toLocaleString()} reviews)</span></div>
         <div class="foot"><div class="price"><small>from, per adult</small><b>${ET.money(t.price)}</b>${t.was ? `<s>${ET.money(t.was)}</s>` : ""}</div><span class="btn btn-dark btn-sm" data-book="${t.id}">Book now</span></div>
@@ -202,7 +210,7 @@
       <div class="body">
         <div style="display:flex;justify-content:space-between;align-items:center"><span class="stars">${"★".repeat(h.stars)}</span><span class="score">${h.rating}</span></div>
         <h3 style="font-family:var(--font-body);font-size:18px">${h.name}</h3>
-        <div class="muted" style="font-size:13px">📍 ${h.area}, ${ET.emirateName(h.emirate)} · ${h.reviews.toLocaleString()} reviews</div>
+        <div class="muted" style="font-size:13px">${ET.icon('map-pin')} ${h.area}, ${ET.emirateName(h.emirate)} · ${h.reviews.toLocaleString()} reviews</div>
         <div class="perks">${h.perks.map((p) => `<span>${p}</span>`).join("")}</div>
         <div class="foot"><div class="price"><small>per night, taxes incl.</small><b>${ET.money(h.price)}</b></div><button class="btn btn-dark btn-sm" data-toast="Hotel checkout demo: ${h.name} reserved. Pay at the hotel.">Reserve</button></div>
       </div></div>`;
@@ -213,19 +221,19 @@
       <div class="body">
         <span class="badge badge-navy">${c.cls}</span>
         <h3 style="font-family:var(--font-body);font-size:18px;margin-top:8px">${c.name}</h3>
-        <div class="specs"><span>👤 ${c.seats} seats</span><span>🧳 ${c.bags} bags</span><span>⚙️ ${c.trans}</span><span>❄️ A/C</span></div>
+        <div class="specs"><span>${ET.icon('user')} ${c.seats} seats</span><span>${ET.icon('luggage')} ${c.bags} bags</span><span>${ET.icon('gauge')} ${c.trans}</span><span>${ET.icon('snowflake')} A/C</span></div>
         <div class="foot"><div class="price"><small>per day · ${ET.money(c.week)}/week</small><b>${ET.money(c.day)}</b></div><button class="btn btn-dark btn-sm" data-toast="Car hire demo: ${c.name} added. Free delivery to your hotel.">Rent</button></div>
       </div></div>`;
 
   ET.postCard = (p) => `
-    <a class="post reveal" href="#" data-toast="Full article coming soon in the live build">
+    <a class="post reveal" href="article.html?id=${p.id}">
       <div class="media"><img src="${p.img}" alt="" loading="lazy" ${ET.imgFallback}></div>
       <div class="meta">${p.cat} · ${new Date(p.date).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })} · ${p.read} read</div>
       <h3>${p.title}</h3><p>${p.excerpt}</p></a>`;
 
   ET.reviewCard = (r) => `
     <div class="review reveal"><div class="stars">${ET.stars(r.rating)}</div><p class="quote">“${r.text}”</p>
-      <div class="who"><div class="av">${r.flag}</div><div><b>${r.name}</b><small>${r.country} · ${r.tour}</small></div></div></div>`;
+      <div class="who"><div class="av">${r.name.split(" ").map(w => w[0]).join("").replace(".", "")}</div><div><b>${r.name}</b><small>${r.country} · ${r.tour}</small></div></div></div>`;
 
   /* ---------- smart trip planner ---------- */
   ET.plan = ({ days, interests, budget, base }) => {

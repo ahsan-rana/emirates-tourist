@@ -8,7 +8,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<link rel="stylesheet" href="assets/styles.css?v=2">
+<link rel="canonical" href="https://emiratestourist.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Emirates Tourist">
+<meta property="og:title" content="Emirates Tourist — Tours, Desert Safaris, Hotels & Car Rental across the UAE">
+<meta property="og:description" content="Plan and book UAE tours, desert safaris, hotels, car hire and visas with a licensed Dubai-based travel company. Instant confirmation, free cancellation, 24/7 WhatsApp support.">
+<meta property="og:url" content="https://emiratestourist.com/">
+<meta property="og:image" content="https://emiratestourist.com/assets/img/dubai-skyline-sunset.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b1f3a">
+<link rel="stylesheet" href="assets/styles.css?v=4">
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 </head>
 <body>
@@ -23,7 +32,7 @@
 
     <div class="search" id="search">
       <div class="tabs">
-        <button class="on" data-tab="tours">🧭 Tours</button><button data-tab="hotels">🏨 Hotels</button><button data-tab="cars">🚗 Cars</button><button data-tab="visa">🛂 Visa</button>
+        <button class="on" data-tab="tours"><svg class="ico " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg> Tours</button><button data-tab="hotels"><svg class="ico " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg> Hotels</button><button data-tab="cars"><svg class="ico " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg> Cars</button><button data-tab="visa"><svg class="ico " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m9 15 2 2 4-4"/></svg> Visa</button>
       </div>
       <div class="row">
         <div class="field"><label>Destination</label><select id="sEmirate"><option value="">All emirates</option></select></div>
@@ -77,10 +86,10 @@
           <div><label>Interests</label><div class="opts" id="pInterests"></div></div>
           <div><label>Budget per day</label><div class="opts" id="pBudget"><span class="chip" data-v="value">Value</span><span class="chip active" data-v="mid">Comfort</span><span class="chip" data-v="premium">Luxury</span></div></div>
           <div><label>Base city</label><div class="opts" id="pBase"><span class="chip active" data-v="dubai">Dubai</span><span class="chip" data-v="abu-dhabi">Abu Dhabi</span><span class="chip" data-v="any">Anywhere</span></div></div>
-          <button class="btn btn-primary" id="pGo" style="justify-self:start">✨ Build my itinerary</button>
+          <button class="btn btn-primary" id="pGo" style="justify-self:start"><svg class="ico " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg> Build my itinerary</button>
         </div>
       </div>
-      <div class="itin" id="itin"><div class="empty"><div class="big">🗺️</div><b>Your itinerary will appear here</b><span>Pick a few interests and hit "Build my itinerary".</span></div></div>
+      <div class="itin" id="itin"><div class="empty"><div class="big"><svg class="ico " width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></svg></div><b>Your itinerary will appear here</b><span>Pick a few interests and hit "Build my itinerary".</span></div></div>
     </div>
   </div>
 </section>
@@ -105,16 +114,16 @@
 <section class="section" style="background:var(--sand)">
   <div class="container split">
     <div class="img reveal"><img src="https://images.unsplash.com/photo-1542401886-65d6c61db217?auto=format&fit=crop&w=1000&q=70" alt="Desert dunes at sunset" onerror="this.style.display='none'">
-      <div class="float"><div style="font-size:30px">🛡️</div><div><b>Travel you can trust</b><div class="muted" style="font-size:13px">Licensed by Dubai Economy & Tourism · Fully insured vehicles</div></div></div></div>
+      <div class="float"><div style="color:var(--navy)"><svg class="ico " width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div><div><b>Travel you can trust</b><div class="muted" style="font-size:13px">Licensed by Dubai Economy & Tourism · Fully insured vehicles</div></div></div></div>
     <div>
       <span class="eyebrow">Why Emirates Tourist</span>
       <h2 class="h2">One company for your entire UAE trip</h2>
       <p class="lead" style="margin-top:12px">We are not a marketplace. Our own guides, drivers and 4x4 fleet run every tour, so you deal with one team from visa to airport drop-off.</p>
       <div class="feature-list">
-        <div><div class="ic">🛂</div><div><b>Visa sponsorship included</b><p>Tourist visas issued in 3 to 5 working days with any hotel or tour package.</p></div></div>
-        <div><div class="ic">💬</div><div><b>Real humans on WhatsApp, 24/7</b><p>Multilingual support in English, Arabic, Hindi, Urdu, Russian and Chinese.</p></div></div>
-        <div><div class="ic">💸</div><div><b>Best price, honestly</b><p>Found it cheaper? We refund the difference and give you a free dhow cruise.</p></div></div>
-        <div><div class="ic">🚐</div><div><b>Hotel pickup everywhere</b><p>Included on most tours across Dubai, Sharjah, Ajman and Abu Dhabi.</p></div></div>
+        <div><div class="ic"><svg class="ico " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m9 15 2 2 4-4"/></svg></div><div><b>Visa sponsorship included</b><p>Tourist visas issued in 3 to 5 working days with any hotel or tour package.</p></div></div>
+        <div><div class="ic"><svg class="ico " width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></div><div><b>Real humans on WhatsApp, 24/7</b><p>Multilingual support in English, Arabic, Hindi, Urdu, Russian and Chinese.</p></div></div>
+        <div><div class="ic"><svg class="ico " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m15 9-6 6"/><path d="M9 9h.01"/><path d="M15 15h.01"/></svg></div><div><b>Best price, honestly</b><p>Found it cheaper? We refund the difference and give you a free dhow cruise.</p></div></div>
+        <div><div class="ic"><svg class="ico " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6v6"/><path d="M15 6v6"/><path d="M2 12h19.6"/><path d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C21.1 6.8 20.4 6 19.5 6H4.5C3.6 6 2.9 6.8 2.6 7.8l-1.4 5c-.1.4-.2.8-.2 1.2 0 .4.1.8.2 1.2.3 1.1.8 2.8.8 2.8h3"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></div><div><b>Hotel pickup everywhere</b><p>Included on most tours across Dubai, Sharjah, Ajman and Abu Dhabi.</p></div></div>
       </div>
     </div>
   </div>
@@ -163,7 +172,7 @@
 <!-- ===== REVIEWS ===== -->
 <section class="section" id="reviews">
   <div class="container">
-    <div class="section-head"><div><span class="eyebrow">Reviews</span><h2 class="h2">Loved by travellers from 90+ countries</h2></div><div class="muted">⭐ 4.9 average · Google, Tripadvisor & GetYourGuide</div></div>
+    <div class="section-head"><div><span class="eyebrow">Reviews</span><h2 class="h2">Loved by travellers from 90+ countries</h2></div><div class="muted"><svg class="ico " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.9 average · Google, Tripadvisor & GetYourGuide</div></div>
     <div class="reviews" id="reviewsRow"></div>
   </div>
 </section>
@@ -187,8 +196,8 @@
 </section>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="assets/data.js?v=2"></script>
-<script src="assets/app.js?v=2"></script>
+<script src="assets/icons.js?v=4"></script><script src="assets/i18n.js?v=4"></script><script src="assets/data.js?v=4"></script><script src="assets/articles.js?v=4"></script>
+<script src="assets/app.js?v=4"></script>
 <script>
 (function(){
   const {$, $$} = ET;
@@ -207,11 +216,11 @@
   $$("[data-go]").forEach(c=>c.onclick=()=>go(c.dataset.go));
 
   /* marquee */
-  const items=["🔥 Red Dune Safari from AED 180","🎈 Hot-air balloon flights resume 1 Nov","🛂 Visa on arrival now 90 days for 100+ nationalities","🎢 Ferrari World + WB World combo, save 19%","🛥️ Sunset yacht cruise, kids go free this month","🏔️ Jais Flight: world's longest zipline"];
+  const items=[ET.icon("flame")+" Red Dune Safari from AED 180",ET.icon("plane")+" Hot-air balloon flights resume 1 Nov",ET.icon("file-check")+" Visa on arrival now 90 days for 100+ nationalities",ET.icon("ferris-wheel")+" Ferrari World + WB World combo, save 19%",ET.icon("ship")+" Sunset yacht cruise, kids go free this month",ET.icon("mountain")+" Jais Flight: world's longest zipline"];
   $("#marquee").innerHTML=[...items,...items].map(i=>`<span>${i}</span>`).join("");
 
   /* categories */
-  $("#cats").innerHTML=ET.categories.map(c=>`<a class="cat reveal" href="tours.html?cat=${c.id}"><div class="ic">${c.icon}</div><b>${c.name}</b><small class="muted">${ET.tours.filter(t=>t.cat===c.id).length*6} tours</small></a>`).join("");
+  $("#cats").innerHTML=ET.categories.map(c=>`<a class="cat reveal" href="tours.html?cat=${c.id}"><div class="ic">${ET.icon(c.icon, 28)}</div><b>${c.name}</b><small class="muted">${ET.tours.filter(t=>t.cat===c.id).length*6} tours</small></a>`).join("");
 
   /* featured tours */
   const renderFeatured=(f="")=>{const list=ET.tours.filter(t=>!f||t.emirate===f).slice(0,8);$("#featured").innerHTML=list.map(ET.tourCard).join("");document.dispatchEvent(new Event("et:rendered"));};
@@ -219,7 +228,7 @@
   $$("#tourFilter .chip").forEach(c=>c.onclick=()=>{$$("#tourFilter .chip").forEach(x=>x.classList.remove("active"));c.classList.add("active");renderFeatured(c.dataset.f);});
 
   /* planner */
-  $("#pInterests").innerHTML=ET.categories.map(c=>`<span class="chip" data-v="${c.id}">${c.icon} ${c.name}</span>`).join("");
+  $("#pInterests").innerHTML=ET.categories.map(c=>`<span class="chip" data-v="${c.id}">${ET.icon(c.icon, 15)} ${c.name}</span>`).join("");
   $("#pDays").oninput=e=>$("#pDaysLbl").textContent=e.target.value;
   $$("#pInterests .chip").forEach(c=>c.onclick=()=>c.classList.toggle("active"));
   ["#pBudget","#pBase"].forEach(id=>$$(id+" .chip").forEach(c=>c.onclick=()=>{$$(id+" .chip").forEach(x=>x.classList.remove("active"));c.classList.add("active");}));
@@ -227,7 +236,7 @@
     const days=+$("#pDays").value, interests=$$("#pInterests .chip.active").map(c=>c.dataset.v), budget=$("#pBudget .chip.active").dataset.v, base=$("#pBase .chip.active").dataset.v;
     const plan=ET.plan({days,interests,budget,base}); const total=plan.reduce((s,d)=>s+d.tour.price,0);
     $("#itin").innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><b>Your ${days}-day UAE itinerary</b><span class="badge badge-gold">AI-ranked</span></div>`+
-      plan.map(d=>`<div class="day"><div class="n"><small>Day</small>${d.day}</div><div><h4>${d.tour.title}</h4><ul><li>${ET.emirateName(d.tour.emirate)} · ${d.tour.duration} · ⭐ ${d.tour.rating}</li><li>${d.extra}</li></ul></div></div>`).join("")+
+      plan.map(d=>`<div class="day"><div class="n"><small>Day</small>${d.day}</div><div><h4>${d.tour.title}</h4><ul><li>${ET.emirateName(d.tour.emirate)} · ${d.tour.duration} · <svg class="ico " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> ${d.tour.rating}</li><li>${d.extra}</li></ul></div></div>`).join("")+
       `<div class="total"><div><small class="muted">Estimated per person</small><br><b style="font-family:var(--font-head);font-size:24px">${ET.money(total)}</b></div><div style="display:flex;gap:8px"><a class="btn btn-ghost btn-sm" href="planner.html">Customise</a><button class="btn btn-primary btn-sm" data-toast="Itinerary sent to WhatsApp. A planner will confirm within 15 minutes.">Book all</button></div></div>`;
   };
   $("#pGo").onclick=renderPlan;
@@ -257,7 +266,7 @@
   };
   renderAll();
   const w=ET.guide.weather;$("#weatherBars").innerHTML=w.map(m=>`<div class="bar ${m.hi<=30?"best":""}" style="height:${(m.hi-10)*3.6}%"><span>${m.hi}°</span></div>`).join("");$("#weatherLabels").innerHTML=w.map(m=>`<span>${m.m}</span>`).join("");
-  $("#essentials").innerHTML=ET.guide.essentials.slice(0,4).map(e=>`<div class="guide-card reveal"><div class="ic">${e.icon}</div><b>${e.title}</b><p>${e.text}</p></div>`).join("");
+  $("#essentials").innerHTML=ET.guide.essentials.slice(0,4).map(e=>`<div class="guide-card reveal"><div class="ic">${ET.icon(e.icon, 24)}</div><b>${e.title}</b><p>${e.text}</p></div>`).join("");
   $("#newsForm").onsubmit=e=>{e.preventDefault();ET.toast("Welcome aboard! Your code WELCOME10 is on its way.");e.target.reset();};
 
   document.addEventListener("et:currency",()=>{renderFeatured($("#tourFilter .chip.active").dataset.f);renderAll();if($("#itin .day"))renderPlan();});

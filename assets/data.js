@@ -33,14 +33,14 @@ ET.emirates = [
 ];
 
 ET.categories = [
-  { id: "desert", name: "Desert Safari", icon: "🏜️" },
-  { id: "city", name: "City Tours", icon: "🏙️" },
-  { id: "water", name: "Water & Beach", icon: "🌊" },
-  { id: "adventure", name: "Adventure", icon: "🪂" },
-  { id: "culture", name: "Culture & Heritage", icon: "🕌" },
-  { id: "luxury", name: "Luxury", icon: "🛥️" },
-  { id: "family", name: "Family & Parks", icon: "🎢" },
-  { id: "food", name: "Food & Nightlife", icon: "🍽️" }
+  { id: "desert", name: "Desert Safari", icon: "tent" },
+  { id: "city", name: "City Tours", icon: "building" },
+  { id: "water", name: "Water & Beach", icon: "waves" },
+  { id: "adventure", name: "Adventure", icon: "mountain" },
+  { id: "culture", name: "Culture & Heritage", icon: "landmark" },
+  { id: "luxury", name: "Luxury", icon: "gem" },
+  { id: "family", name: "Family & Parks", icon: "ferris-wheel" },
+  { id: "food", name: "Food & Nightlife", icon: "utensils" }
 ];
 
 ET.tours = [
@@ -147,7 +147,13 @@ ET.posts = [
     excerpt: "An up-to-date list of nationalities, durations, extension rules and the new multi-entry tourist visa." },
   { id: "p4", title: "7 Emirates in 7 Days: The Ultimate UAE Road Trip", date: "2026-08-12", read: "9 min", cat: "Itineraries",
     img: "https://images.unsplash.com/photo-1494783367193-149034c05e8f?auto=format&fit=crop&w=900&q=70",
-    excerpt: "A day-by-day route from Abu Dhabi's mosques to Fujairah's reefs, with where to stay and what to skip." }
+    excerpt: "A day-by-day route from Abu Dhabi's mosques to Fujairah's reefs, with where to stay and what to skip." },
+  { id: "p5", title: "Dubai on a Budget: 20 Free and Cheap Things to Do", date: "2026-07-22", read: "6 min", cat: "Travel Tips",
+    img: "https://images.unsplash.com/photo-1526495124232-a04e1849168c?auto=format&fit=crop&w=900&q=70",
+    excerpt: "Fountain shows, public beaches, AED 1 boat rides and where locals actually eat. Dubai doesn't have to be expensive." },
+  { id: "p6", title: "Abu Dhabi vs Dubai: Which Should You Visit First?", date: "2026-07-05", read: "5 min", cat: "Planning",
+    img: "https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=900&q=70",
+    excerpt: "Skyline or culture, nightlife or theme parks. An honest comparison and how we'd split a 3, 5 or 7 day trip." }
 ];
 
 ET.reviews = [
@@ -165,11 +171,11 @@ ET.guide = {
     { m: "Sep", hi: 39, lo: 28 }, { m: "Oct", hi: 35, lo: 24 }, { m: "Nov", hi: 30, lo: 20 }, { m: "Dec", hi: 26, lo: 16 }
   ],
   essentials: [
-    { icon: "🛂", title: "Visa", text: "Over 80 nationalities get visa on arrival (30 or 90 days). Others can apply online in 3 to 5 working days. We can sponsor your tourist visa with any booking." },
-    { icon: "💱", title: "Currency", text: "UAE Dirham (AED), pegged at 3.6725 to the US dollar. Cards accepted almost everywhere; carry small cash for souks and taxis." },
-    { icon: "🕌", title: "Etiquette", text: "Dress modestly in malls and heritage areas, cover shoulders and knees at mosques. Public displays of affection are kept low-key." },
-    { icon: "🚕", title: "Getting around", text: "Dubai Metro, Careem and Uber are reliable. Driving is easy with an international permit; roads between emirates are excellent." },
-    { icon: "🔌", title: "Power & SIM", text: "Type G plugs (UK style), 220V. Free tourist SIM at Dubai airport; eSIM from du and Etisalat from AED 50." },
-    { icon: "🕐", title: "Time & weekend", text: "GMT+4. Weekend is Saturday and Sunday; Friday afternoons are quieter for prayers." }
+    { icon: "file-check", title: "Visa", text: "Over 80 nationalities get visa on arrival (30 or 90 days). Others can apply online in 3 to 5 working days. We can sponsor your tourist visa with any booking." },
+    { icon: "banknote", title: "Currency", text: "UAE Dirham (AED), pegged at 3.6725 to the US dollar. Cards accepted almost everywhere; carry small cash for souks and taxis." },
+    { icon: "landmark", title: "Etiquette", text: "Dress modestly in malls and heritage areas, cover shoulders and knees at mosques. Public displays of affection are kept low-key." },
+    { icon: "car", title: "Getting around", text: "Dubai Metro, Careem and Uber are reliable. Driving is easy with an international permit; roads between emirates are excellent." },
+    { icon: "zap", title: "Power & SIM", text: "Type G plugs (UK style), 220V. Free tourist SIM at Dubai airport; eSIM from du and Etisalat from AED 50." },
+    { icon: "clock", title: "Time & weekend", text: "GMT+4. Weekend is Saturday and Sunday; Friday afternoons are quieter for prayers." }
   ]
 };

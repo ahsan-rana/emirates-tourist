@@ -21,10 +21,16 @@ Then open http://localhost:8765.
 | `cars.html` | Fleet by class plus an instant quote calculator (daily/weekly rates, delivery, insurance, chauffeur) |
 | `planner.html` | Four-question itinerary builder with per-day swaps, live total and "send to WhatsApp" |
 | `guide.html` | Essentials, visa table, month-by-month temperature chart, FAQ, blog |
+| `blog.html` | Blog listing with featured post and category filter |
+| `article.html?id=p1` | Full article page with table of contents, share buttons, related posts and Article schema |
 | `contact.html` | Contact channels, careers note, enquiry form |
+| `404.html` | Not-found page (served automatically by GitHub Pages) |
 
 Shared pieces live in `assets/`:
 
+- `i18n.js` — UI translations for English, Arabic, Hindi, Urdu, Chinese and Russian, keyed by the English string, plus the language engine (RTL for Arabic/Urdu). Add a key to every language block when you add new UI text.
+- `icons.js` — SVG icon set (Lucide + Simple Icons). Use `ET.icon('name', size)`.
+- `articles.js` — full blog article bodies, keyed by post id.
 - `data.js` — all content (emirates, tours, hotels, cars, posts, reviews, guide). Edit prices and copy here.
 - `app.js` — header/footer injection, AED/USD toggle, dark mode, wishlist, booking modal, trip planner logic, card renderers.
 - `styles.css` — design system (navy + gold + sand palette, Playfair Display + Plus Jakarta Sans), light and dark themes, responsive rules.
