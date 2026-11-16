@@ -1,0 +1,32 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function isOwner(uid) { return signedIn() && request.auth.uid == uid; }
+
+    // Visitors can create bookings (guest or signed in). Signed-in users can read only their own.
+    match /bookings/{id} {
+      allow create: if request.resource.data.keys().hasAll(['title', 'date', 'total', 'createdAt'])
+                    && (request.resource.data.uid == null || (signedIn() && request.resource.data.uid == request.auth.uid));
+      allow read: if signedIn() && resource.data.uid == request.auth.uid;
+      allow update, delete: if false; // staff manage bookings from the Firebase console / admin tools
+    }
+
+    // Contact form: anyone can submit, nobody can read from the site.
+    match /enquiries/{id} {
+      allow create: if request.resource.data.keys().hasAll(['email', 'createdAt']);
+      allow read, update, delete: if false;
+    }
+
+    // Newsletter: anyone can add their own email; no reading from the site.
+    match /subscribers/{email} {
+      allow create, update: if request.resource.data.email == email;
+      allow read, delete: if false;
+    }
+
+    // Each user can read and write only their own profile.
+    match /users/{uid} {
+      allow read, write: if isOwner(uid);
+    }
+  }
+}

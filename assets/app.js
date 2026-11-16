@@ -51,13 +51,14 @@
       <nav class="menu">${links.map(([h, t]) => `<a href="${h}" class="${page === h ? "active" : ""}">${t}</a>`).join("")}</nav>
       <div class="actions">
         <div class="lang" id="langMenu">
-          <button class="lang-btn" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Change language">${ET.icon("globe",16)}<span id="langCur">${ET.LANGS[ET.lang].name}</span>${ET.icon("chevron-down",14,"chev")}</button>
+          <button class="lang-btn" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Change language">${ET.icon("globe",16)}<span id="langCur">${ET.LANGS[ET.lang].code}</span><span class="sep">·</span><span id="curCur">${ET.currency}</span>${ET.icon("chevron-down",14,"chev")}</button>
           <div class="lang-list" role="listbox" id="langList" aria-label="Language">
             <div class="lang-head">Language · اللغة · 语言</div>
             ${Object.entries(ET.LANGS).map(([k,v])=>`<button type="button" role="option" data-lang="${k}" aria-selected="${k===ET.lang}"><span class="lang-code">${v.code}</span><span class="lang-names"><b lang="${k}">${v.name}</b><small>${v.label}</small></span><span class="tick">${ET.icon("check",16)}</span></button>`).join("")}
+            <div class="lang-head" style="margin-top:6px">Currency</div>
+            <div class="cur-toggle in-menu"><button data-cur="AED">AED <small>UAE Dirham</small></button><button data-cur="USD">USD <small>US Dollar</small></button></div>
           </div>
         </div>
-        <div class="cur-toggle"><button data-cur="AED">AED</button><button data-cur="USD">USD</button></div>
         <button class="iconbtn" id="themeBtn" title="Toggle dark mode">🌙</button>
         <div class="account" id="account"></div>
         <a class="btn btn-primary btn-sm" href="planner.html">Plan my trip</a>
@@ -70,6 +71,8 @@
     ${links.map(([h, t]) => `<a href="${h}">${t}</a>`).join("")}
     <a href="https://wa.me/971554439551" target="_blank">WhatsApp us</a>
     <div class="mobile-account" id="mobileAccount"></div>
+    <div class="mobile-lang-head">Currency</div>
+    <div class="cur-toggle in-mobile"><button data-cur="AED">AED</button><button data-cur="USD">USD</button></div>
     <div class="mobile-lang-head">${ET.icon("globe",16)} Language</div>
     <div class="mobile-lang">${Object.entries(ET.LANGS).map(([k,v])=>`<button type="button" data-lang="${k}" aria-selected="${k===ET.lang}"><span class="lang-code">${v.code}</span><span class="lang-names"><b lang="${k}">${v.name}</b><small>${v.label}</small></span></button>`).join("")}</div>
   </div>`;
@@ -125,7 +128,7 @@
     if (e.key === "ArrowUp") { e.preventDefault(); items[(i - 1 + items.length) % items.length].focus(); }
     if (e.key === "Escape") { setLangOpen(false); langBtn.focus(); }
   });
-  const syncLangUI = () => { $("#langCur").textContent = ET.LANGS[ET.lang].name; $$("[data-lang]").forEach((b) => b.setAttribute("aria-selected", b.dataset.lang === ET.lang)); };
+  const syncLangUI = () => { $("#langCur").textContent = ET.LANGS[ET.lang].code; $$("[data-lang]").forEach((b) => b.setAttribute("aria-selected", b.dataset.lang === ET.lang)); };
   $$("[data-lang]").forEach((b) => b.onclick = () => { ET.applyLang(b.dataset.lang); setLangOpen(false); $("#mobileMenu").classList.remove("open"); });
   document.addEventListener("et:lang", syncLangUI); syncLangUI();
   (() => { const p = location.pathname.split("/").pop() || "index.html"; $$(".menu a").forEach((l) => l.classList.toggle("active", l.getAttribute("href") === p || (p === "article.html" && l.getAttribute("href") === "blog.html") || (p === "tour.html" && l.getAttribute("href") === "tours.html"))); })();
@@ -150,10 +153,11 @@
       $("#mobileMenu").classList.remove("open"); $$(".acct.open").forEach((x) => x.classList.remove("open"));
       if (b.dataset.acct === "out") { await ET.auth.signOut(); ET.toast("Signed out. See you soon!"); }
       if (b.dataset.acct === "saved") { const items = [...ET.wishlist].map((id) => ET.byId(ET.tours, id)).filter(Boolean); ET.openModal("Saved tours", items.length ? `<div style="display:grid;gap:10px">${items.map((t) => `<a href="tour.html?id=${t.id}" style="display:flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px"><img src="${t.img}" style="width:70px;height:54px;object-fit:cover;border-radius:8px" ${ET.imgFallback}><div><b style="font-size:14px">${t.title}</b><div class="muted" style="font-size:13px">${ET.emirateName(t.emirate)} · ${ET.money(t.price)}</div></div></a>`).join("")}</div>` : `<p class="muted">Tap the heart on any tour to save it here.</p>`); }
-      if (b.dataset.acct === "bookings") { const l = ET.auth.bookings(); ET.openModal("My bookings", l.length ? `<div style="display:grid;gap:10px">${l.map((k) => `<div style="border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;gap:12px;align-items:center"><div><b style="font-size:14px">${k.title}</b><div class="muted" style="font-size:13px">${new Date(k.date).toDateString()} · ${k.pax} · Ref ${k.ref}</div></div><span class="badge badge-gold">${k.status}</span></div>`).join("")}</div>` : `<div class="success" style="padding:10px 0"><div style="color:var(--gold)">${ET.icon("ticket", 44)}</div><b>No bookings yet</b><p class="muted" style="margin-top:6px">Bookings you make while signed in appear here.</p><a class="btn btn-dark" href="tours.html" style="margin-top:14px">Browse tours</a></div>`); }
+      if (b.dataset.acct === "bookings") { ET.openModal("My bookings", `<p class="muted">Loading…</p>`); if (ET._unwatch) ET._unwatch(); ET._unwatch = await ET.db.watchBookings((l) => { if (!$("#modal").classList.contains("open") || $("#modalTitle").textContent !== "My bookings") return; $("#modalBody").innerHTML = l.length ? `<div style="display:grid;gap:10px">${l.map((k) => `<div style="border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;gap:12px;align-items:center"><div><b style="font-size:14px">${k.title}</b><div class="muted" style="font-size:13px">${new Date(k.date).toDateString()} · ${k.pax} · ${ET.money(k.total)} · Ref ${k.ref}</div></div><span class="badge badge-gold">${k.status}</span></div>`).join("")}</div>` : `<div class="success" style="padding:10px 0"><div style="color:var(--gold)">${ET.icon("ticket", 44)}</div><b>No bookings yet</b><p class="muted" style="margin-top:6px">Bookings you make while signed in appear here.</p><a class="btn btn-dark" href="tours.html" style="margin-top:14px">Browse tours</a></div>`; }); }
     });
   };
   ET.auth.onChange(renderAccount);
+  ET.auth.onChange((u) => { if (u) ET.db.upsertUser(u).catch(() => {}); });
 
   ET.openAuth = (mode = "signin") => {
     const demoNote = ET.auth.mode === "demo" ? `<div class="auth-note">${ET.icon("shield-check", 14)} Demo mode: accounts are stored in this browser only. Add Firebase keys to go live.</div>` : "";
@@ -200,7 +204,7 @@
   $("#themeBtn").onclick = () => { const t = document.documentElement.dataset.theme === "dark" ? "light" : "dark"; store.set("theme", t); applyTheme(t); };
 
   /* ---------- currency ---------- */
-  const syncCur = () => $$(".cur-toggle button").forEach((b) => b.classList.toggle("on", b.dataset.cur === ET.currency));
+  const syncCur = () => { $$(".cur-toggle button").forEach((b) => b.classList.toggle("on", b.dataset.cur === ET.currency)); const cc = $("#curCur"); if (cc) cc.textContent = ET.currency; };
   syncCur();
   $$(".cur-toggle button").forEach((b) => b.onclick = () => { ET.currency = b.dataset.cur; store.set("cur", ET.currency); syncCur(); document.dispatchEvent(new Event("et:currency")); ET.toast("Prices now in " + ET.currency); });
 
@@ -261,11 +265,13 @@
         <button class="btn btn-primary btn-block" id="bConfirm">Confirm booking · ${ET.money(sub)}</button>`;
       $$("[data-q]").forEach((b) => b.onclick = () => { st[b.dataset.q] = Math.max(b.dataset.q === "adults" ? 1 : 0, Math.min(12, st[b.dataset.q] + +b.dataset.d)); render(); });
       $("#bDate").onchange = (e) => (st.date = e.target.value);
-      $("#bConfirm").onclick = () => {
+      $("#bConfirm").onclick = async () => {
         const name = $("#bName").value.trim();
         if (!name) { ET.toast("Please enter your name"); $("#bName").focus(); return; }
         const ref = "ET-" + Math.random().toString(36).slice(2, 8).toUpperCase();
-        ET.auth.addBooking({ ref, id: t.id, title: t.title, date: st.date, pax: `${st.adults} adults${st.children ? ", " + st.children + " children" : ""}`, total: sub, status: "Confirmed", created: Date.now() });
+        const booking = { ref, tourId: t.id, title: t.title, date: st.date, adults: st.adults, children: st.children, pax: `${st.adults} adults${st.children ? ", " + st.children + " children" : ""}`, total: Math.round(sub), currency: "AED", pickup: $("#bPick").value, name, phone: $("#bPhone").value.trim(), lang: ET.lang };
+        $("#bConfirm").disabled = true; $("#bConfirm").textContent = "Saving…";
+        try { await ET.db.saveBooking(booking); } catch (e) { console.error(e); ET.toast("Could not save the booking. Please try again or WhatsApp us."); $("#bConfirm").disabled = false; $("#bConfirm").textContent = "Confirm booking"; return; }
         $("#modalBody").innerHTML = `<div class="success"><div class="ic">${ET.icon("check", 34)}</div><h3 style="font-size:24px;margin-bottom:8px">You're booked, ${name.split(" ")[0]}!</h3><p class="muted">Reference <b>${ref}</b>. We've sent your e-ticket and a WhatsApp confirmation. Your guide will message you the evening before.</p><div class="summary" style="text-align:left;margin:18px 0"><div><b>${t.title}</b></div><div>${new Date(st.date).toDateString()} · ${st.adults} adults${st.children ? ", " + st.children + " children" : ""}</div><div class="tot"><span>Paid</span><span>${ET.money(sub)}</span></div></div><button class="btn btn-dark" onclick="ET.closeModal()">Done</button></div>`;
       };
     };

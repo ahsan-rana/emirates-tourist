@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://emiratestourist.com/assets/img/dubai-skyline-sunset.webp">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0b1f3a">
-<link rel="stylesheet" href="assets/styles.css?v=9">
+<link rel="stylesheet" href="assets/styles.css?v=12">
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 </head>
 <body>
@@ -62,6 +62,6 @@
     </form>
   </div>
 </div></section>
-<script src="assets/icons.js?v=9"></script><script src="assets/i18n.js?v=9"></script><script src="assets/data.js?v=9"></script><script src="assets/articles.js?v=9"></script><script src="assets/auth.js?v=9"></script><script src="assets/app.js?v=9"></script>
-<script>ET.$("#cf").onsubmit=e=>{e.preventDefault();ET.toast("Thanks! A travel planner will reply within the hour.");e.target.reset();};</script>
+<script src="assets/icons.js?v=12"></script><script src="assets/i18n.js?v=12"></script><script src="assets/data.js?v=12"></script><script src="assets/articles.js?v=12"></script><script src="assets/auth.js?v=12"></script><script src="assets/db.js?v=12"></script><script src="assets/app.js?v=12"></script>
+<script>ET.$("#cf").onsubmit=async e=>{e.preventDefault();const f=e.target,[name,phone]=[...f.querySelectorAll('.row input')].map(i=>i.value.trim()),email=f.querySelector('input[type=email]').value.trim(),interest=f.querySelector('select').value,date=f.querySelector('input[type=date]').value,message=f.querySelector('textarea').value.trim();const b=f.querySelector('button');b.disabled=true;b.textContent="Sending…";try{await ET.db.saveEnquiry({name,phone,email,interest,date,message,lang:ET.lang,page:location.pathname});ET.toast("Thanks! A travel planner will reply within the hour.");f.reset();}catch(err){console.error(err);ET.toast("Could not send. Please WhatsApp us instead.");}b.disabled=false;b.textContent="Send message";};</script>
 </body></html>

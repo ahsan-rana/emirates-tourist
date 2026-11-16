@@ -35,17 +35,14 @@ Shared pieces live in `assets/`:
 - `app.js` — header/footer injection, AED/USD toggle, dark mode, wishlist, booking modal, trip planner logic, card renderers.
 - `styles.css` — design system (navy + gold + sand palette, Playfair Display + Plus Jakarta Sans), light and dark themes, responsive rules.
 
-## Sign in (Google + email/password)
+## Sign in and live data (Firebase)
 
-`assets/auth.js` provides sign-in with Google and with email/password, a signed-in header menu, and bookings saved per account. It runs in **demo mode** (accounts stored in the visitor's browser) until you connect Firebase Authentication, which is free for this volume:
+The site uses Firebase project `emirates-tourist` (Google account of the site owner):
 
-1. Create a project at https://console.firebase.google.com and add a **Web app**.
-2. In **Authentication → Sign-in method**, enable **Google** and **Email/Password**.
-3. In **Authentication → Settings → Authorized domains**, add `emiratestourist.com`.
-4. Copy the web config object and paste it into `ET.AUTH_CONFIG` at the top of `assets/auth.js`.
-
-No other code changes are needed. Bookings are still stored in the browser; moving them to Firestore is the next step.
+- **Authentication**: Google and Email/Password providers, authorized domain `emiratestourist.com`. Code in `assets/auth.js` (web config at the top; the key is public by design and protected by the authorized-domain list and security rules).
+- **Cloud Firestore** (region me-central1) stores `bookings`, `enquiries` (contact form), `subscribers` (newsletter) and `users`. Code in `assets/db.js`; security rules in `firestore.rules` (published in the console: visitors can create, only owners can read their bookings, nothing is readable publicly).
+- View and manage data at https://console.firebase.google.com/project/emirates-tourist/firestore and users at https://console.firebase.google.com/project/emirates-tourist/authentication/users.
 
 ## Demo-only behaviour
 
-Bookings, reservations, the newsletter and the contact form show confirmations in the browser and do not send data anywhere yet. Wiring to a real backend (Stripe checkout, a CRM, WhatsApp Business API) is the next step. Photos are Unsplash placeholders; replace them with your own tour photography for the live site.
+Tour bookings, contact enquiries and newsletter sign-ups are saved to Firestore. Hotel and car reservations still only show a confirmation toast. Online payment (Stripe) and automatic WhatsApp/email notifications to staff are the next steps. Photos are Unsplash placeholders; replace them with your own tour photography for the live site.

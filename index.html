@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://emiratestourist.com/assets/img/dubai-skyline-sunset.webp">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0b1f3a">
-<link rel="stylesheet" href="assets/styles.css?v=9">
+<link rel="stylesheet" href="assets/styles.css?v=12">
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 </head>
 <body>
@@ -215,8 +215,8 @@
 </section>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="assets/icons.js?v=9"></script><script src="assets/i18n.js?v=9"></script><script src="assets/data.js?v=9"></script><script src="assets/articles.js?v=9"></script><script src="assets/auth.js?v=9"></script>
-<script src="assets/app.js?v=9"></script>
+<script src="assets/icons.js?v=12"></script><script src="assets/i18n.js?v=12"></script><script src="assets/data.js?v=12"></script><script src="assets/articles.js?v=12"></script><script src="assets/auth.js?v=12"></script><script src="assets/db.js?v=12"></script>
+<script src="assets/app.js?v=12"></script>
 <script>
 (function(){
   const {$, $$} = ET;
@@ -286,7 +286,7 @@
   renderAll();
   const w=ET.guide.weather;$("#weatherBars").innerHTML=w.map(m=>`<div class="bar ${m.hi<=30?"best":""}" style="height:${(m.hi-10)*3.6}%"><span>${m.hi}°</span></div>`).join("");$("#weatherLabels").innerHTML=w.map(m=>`<span>${m.m}</span>`).join("");
   $("#essentials").innerHTML=ET.guide.essentials.slice(0,4).map(e=>`<div class="guide-card reveal"><div class="ic">${ET.icon(e.icon, 24)}</div><b>${e.title}</b><p>${e.text}</p></div>`).join("");
-  $("#newsForm").onsubmit=e=>{e.preventDefault();ET.toast("Welcome aboard! Your code WELCOME10 is on its way.");e.target.reset();};
+  $("#newsForm").onsubmit=async e=>{e.preventDefault();const em=e.target.querySelector("input").value;try{await ET.db.subscribe(em,"newsletter");ET.toast("Welcome aboard! Your code WELCOME10 is on its way.");e.target.reset();}catch(err){console.error(err);ET.toast("Could not subscribe right now. Please try again.");}};
 
   document.addEventListener("et:currency",()=>{renderFeatured($("#tourFilter .chip.active").dataset.f);renderAll();if($("#itin .day"))renderPlan();});
   document.dispatchEvent(new Event("et:rendered"));

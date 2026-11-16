@@ -4,7 +4,7 @@
    Until a config is present the site runs in DEMO mode: accounts live only in this browser. */
 window.ET = window.ET || {};
 
-ET.AUTH_CONFIG = null; /* e.g. { apiKey: "...", authDomain: "emirates-tourist.firebaseapp.com", projectId: "emirates-tourist", appId: "..." } */
+ET.AUTH_CONFIG = { apiKey: "AIzaSyC8XS0roPPvdQO1c2MsD4C7_Yases_L-mw", authDomain: "emirates-tourist.firebaseapp.com", projectId: "emirates-tourist", storageBucket: "emirates-tourist.firebasestorage.app", messagingSenderId: "442303300544", appId: "1:442303300544:web:08d28fb122b05a23463e25" };
 
 (function () {
   const store = { get(k, d) { try { return JSON.parse(localStorage.getItem("et:" + k)) ?? d; } catch { return d; } }, set(k, v) { try { localStorage.setItem("et:" + k, JSON.stringify(v)); } catch {} }, del(k) { try { localStorage.removeItem("et:" + k); } catch {} } };
