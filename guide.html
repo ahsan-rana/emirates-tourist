@@ -4,17 +4,36 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>UAE Travel Guide: Visa, Weather, Money & Etiquette — Emirates Tourist</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="alternate" hreflang="x-default" href="https://emiratestourist.com/guide.html">
+<link rel="alternate" hreflang="en" href="https://emiratestourist.com/guide.html?lang=en">
+<link rel="alternate" hreflang="ar" href="https://emiratestourist.com/guide.html?lang=ar">
+<link rel="alternate" hreflang="hi" href="https://emiratestourist.com/guide.html?lang=hi">
+<link rel="alternate" hreflang="ur" href="https://emiratestourist.com/guide.html?lang=ur">
+<link rel="alternate" hreflang="zh" href="https://emiratestourist.com/guide.html?lang=zh">
+<link rel="alternate" hreflang="ru" href="https://emiratestourist.com/guide.html?lang=ru">
+<meta property="og:locale" content="en_AE">
+<meta property="og:locale:alternate" content="ar_AE">
+<meta property="og:locale:alternate" content="hi_IN">
+<meta property="og:locale:alternate" content="ur_PK">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta property="og:locale:alternate" content="ru_RU">
+<meta name="twitter:site" content="@emiratestourist">
+<meta name="geo.region" content="AE-DU">
+<meta name="geo.placename" content="Dubai">
 <link rel="canonical" href="https://emiratestourist.com/guide.html">
 <meta name="description" content="Everything first-time visitors ask: visas, best months, currency, dress code, transport and FAQs, written by locals.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Emirates Tourist">
 <meta property="og:title" content="UAE Travel Guide: Visa, Weather, Money & Etiquette">
+<meta name="twitter:title" content="UAE Travel Guide: Visa, Weather, Money & Etiquette">
+<meta name="twitter:description" content="Everything first-time visitors ask: visas, best months, currency, dress code, transport and FAQs, written by locals.">
 <meta property="og:description" content="Everything first-time visitors ask: visas, best months, currency, dress code, transport and FAQs, written by locals.">
 <meta property="og:url" content="https://emiratestourist.com/guide.html">
 <meta property="og:image" content="https://emiratestourist.com/assets/img/dubai-skyline-sunset.webp">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0b1f3a">
-<link rel="stylesheet" href="assets/styles.css?v=4">
+<link rel="stylesheet" href="assets/styles.css?v=6">
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 <style>.faq details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-bottom:10px}.faq summary{font-weight:700;cursor:pointer}.faq p{margin-top:10px;color:var(--muted);font-size:14.5px}.visa-table{width:100%;border-collapse:collapse;font-size:14px;background:var(--card);border-radius:var(--r);overflow:hidden}.visa-table th,.visa-table td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left}.visa-table th{background:var(--sand);font-size:12px;letter-spacing:.1em;text-transform:uppercase}</style>
 </head>
@@ -51,7 +70,7 @@
   <div class="grid grid-4" id="posts"></div>
 </div></section>
 
-<script src="assets/icons.js?v=4"></script><script src="assets/i18n.js?v=4"></script><script src="assets/data.js?v=4"></script><script src="assets/articles.js?v=4"></script><script src="assets/app.js?v=4"></script>
+<script src="assets/icons.js?v=6"></script><script src="assets/i18n.js?v=6"></script><script src="assets/data.js?v=6"></script><script src="assets/articles.js?v=6"></script><script src="assets/app.js?v=6"></script>
 <script>
 (function(){const {$}=ET;
   $("#ess").innerHTML=ET.guide.essentials.map(e=>`<div class="guide-card reveal"><div class="ic">${ET.icon(e.icon, 24)}</div><b>${e.title}</b><p>${e.text}</p></div>`).join("");
@@ -59,6 +78,7 @@
   const faq=[["Is the UAE safe for solo and female travellers?","Yes. The UAE consistently ranks among the safest countries in the world. Solo female travellers can use taxis, the metro's women-only carriages and walk freely in tourist areas at night."],["Can I drink alcohol?","Yes, in licensed hotels, bars and restaurants in Dubai, Abu Dhabi and most emirates. Sharjah is dry. Never drink in public places or drive after drinking."],["What should I wear?","Light, breathable clothing. Beachwear is for beaches and pools only. Cover shoulders and knees in malls, old town areas and mosques, where women also cover their hair (abayas are loaned free)."],["Is Ramadan a bad time to visit?","Not at all. Hotels and many restaurants serve food during the day, and the iftar tents and night markets are a highlight. Just be respectful about eating in public before sunset."],["How much should I tip?","Tipping is appreciated but not required. 10% in restaurants, AED 5 to 10 for drivers and porters, and AED 50 to 100 for a full-day guide is generous."]];
   $("#faq").innerHTML=faq.map(([q,a],i)=>`<details ${i===0?"open":""}><summary>${q}</summary><p>${a}</p></details>`).join("");
   $("#posts").innerHTML=ET.posts.map(ET.postCard).join("");document.dispatchEvent(new Event("et:rendered"));
+  ET.ld({"@context":"https://schema.org","@type":"FAQPage","mainEntity":faq.map(([q,a])=>({"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}}))});
 })();
 </script>
 </body></html>

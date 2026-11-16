@@ -1,12 +1,12 @@
 /* Emirates Tourist — UI translations. Keys are the English source strings. */
 window.ET = window.ET || {};
 ET.LANGS = {
-  en: { name: "English", dir: "ltr" },
-  ar: { name: "العربية", dir: "rtl", font: "Noto+Sans+Arabic:wght@400;600;700", family: "'Noto Sans Arabic', 'Segoe UI', Tahoma, sans-serif" },
-  hi: { name: "हिन्दी", dir: "ltr", font: "Noto+Sans+Devanagari:wght@400;600;700", family: "'Noto Sans Devanagari', 'Nirmala UI', sans-serif" },
-  ur: { name: "اردو", dir: "rtl", font: "Noto+Nastaliq+Urdu:wght@400;600", family: "'Noto Nastaliq Urdu', 'Noto Sans Arabic', 'Segoe UI', sans-serif" },
-  zh: { name: "中文", dir: "ltr", family: "'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif" },
-  ru: { name: "Русский", dir: "ltr", family: "'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif" }
+  en: { name: "English", label: "English", code: "EN", dir: "ltr" },
+  ar: { name: "العربية", label: "Arabic", code: "AR", dir: "rtl", font: "Noto+Sans+Arabic:wght@400;600;700", family: "'Noto Sans Arabic', 'Segoe UI', Tahoma, sans-serif" },
+  hi: { name: "हिन्दी", label: "Hindi", code: "HI", dir: "ltr", font: "Noto+Sans+Devanagari:wght@400;600;700", family: "'Noto Sans Devanagari', 'Nirmala UI', sans-serif" },
+  ur: { name: "اردو", label: "Urdu", code: "UR", dir: "rtl", font: "Noto+Nastaliq+Urdu:wght@400;600", family: "'Noto Nastaliq Urdu', 'Noto Sans Arabic', 'Segoe UI', sans-serif" },
+  zh: { name: "中文", label: "Chinese", code: "ZH", dir: "ltr", family: "'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif" },
+  ru: { name: "Русский", label: "Russian", code: "RU", dir: "ltr", family: "'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif" }
 };
 
 ET.I18N = {

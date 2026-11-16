@@ -50,7 +50,13 @@
       <a class="brand" href="index.html"><img src="assets/img/logo.webp" alt="Emirates Tourist - سائح الإمارات"></a>
       <nav class="menu">${links.map(([h, t]) => `<a href="${h}" class="${page === h ? "active" : ""}">${t}</a>`).join("")}</nav>
       <div class="actions">
-        <label class="lang"><span>${ET.icon("globe",16)}</span><select id="langSel" aria-label="Language">${Object.entries(ET.LANGS).map(([k,v])=>`<option value="${k}">${v.name}</option>`).join("")}</select></label>
+        <div class="lang" id="langMenu">
+          <button class="lang-btn" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Change language">${ET.icon("globe",16)}<span id="langCur">${ET.LANGS[ET.lang].name}</span>${ET.icon("chevron-down",14,"chev")}</button>
+          <div class="lang-list" role="listbox" id="langList" aria-label="Language">
+            <div class="lang-head">Language · اللغة · 语言</div>
+            ${Object.entries(ET.LANGS).map(([k,v])=>`<button type="button" role="option" data-lang="${k}" aria-selected="${k===ET.lang}"><span class="lang-code">${v.code}</span><span class="lang-names"><b lang="${k}">${v.name}</b><small>${v.label}</small></span><span class="tick">${ET.icon("check",16)}</span></button>`).join("")}
+          </div>
+        </div>
         <div class="cur-toggle"><button data-cur="AED">AED</button><button data-cur="USD">USD</button></div>
         <button class="iconbtn" id="themeBtn" title="Toggle dark mode">🌙</button>
         <button class="iconbtn" id="wishBtn" title="Wishlist">${ET.icon("heart")}<span id="wishCount" style="font-size:11px;margin-left:2px"></span></button>
@@ -63,7 +69,8 @@
     <button class="iconbtn close" id="closeMenu">${ET.icon("x")}</button>
     ${links.map(([h, t]) => `<a href="${h}">${t}</a>`).join("")}
     <a href="https://wa.me/971554439551" target="_blank">WhatsApp us</a>
-    <div class="mobile-lang">${Object.entries(ET.LANGS).map(([k,v])=>`<button class="chip" data-lang="${k}">${v.name}</button>`).join("")}</div>
+    <div class="mobile-lang-head">${ET.icon("globe",16)} Language</div>
+    <div class="mobile-lang">${Object.entries(ET.LANGS).map(([k,v])=>`<button type="button" data-lang="${k}" aria-selected="${k===ET.lang}"><span class="lang-code">${v.code}</span><span class="lang-names"><b lang="${k}">${v.name}</b><small>${v.label}</small></span></button>`).join("")}</div>
   </div>`;
 
   const footerHTML = `
@@ -108,9 +115,19 @@
   document.body.insertAdjacentHTML("beforeend", footerHTML);
 
   /* ---------- language ---------- */
-  const langSel = $("#langSel");
-  if (langSel) { langSel.value = ET.lang; langSel.onchange = () => ET.applyLang(langSel.value); }
-  $$("[data-lang]").forEach((b) => b.onclick = () => { ET.applyLang(b.dataset.lang); $("#mobileMenu").classList.remove("open"); });
+  const langMenu = $("#langMenu"), langBtn = $("#langBtn"), langList = $("#langList");
+  const setLangOpen = (o) => { langMenu.classList.toggle("open", o); langBtn.setAttribute("aria-expanded", o); if (o) (langList.querySelector('[aria-selected="true"]') || langList.querySelector("[data-lang]")).focus(); };
+  langBtn.onclick = (e) => { e.stopPropagation(); setLangOpen(!langMenu.classList.contains("open")); };
+  document.addEventListener("click", (e) => { if (!langMenu.contains(e.target)) setLangOpen(false); });
+  langList.addEventListener("keydown", (e) => {
+    const items = $$("[data-lang]", langList); const i = items.indexOf(document.activeElement);
+    if (e.key === "ArrowDown") { e.preventDefault(); items[(i + 1) % items.length].focus(); }
+    if (e.key === "ArrowUp") { e.preventDefault(); items[(i - 1 + items.length) % items.length].focus(); }
+    if (e.key === "Escape") { setLangOpen(false); langBtn.focus(); }
+  });
+  const syncLangUI = () => { $("#langCur").textContent = ET.LANGS[ET.lang].name; $$("[data-lang]").forEach((b) => b.setAttribute("aria-selected", b.dataset.lang === ET.lang)); };
+  $$("[data-lang]").forEach((b) => b.onclick = () => { ET.applyLang(b.dataset.lang); setLangOpen(false); $("#mobileMenu").classList.remove("open"); });
+  document.addEventListener("et:lang", syncLangUI); syncLangUI();
   (() => { const p = location.pathname.split("/").pop() || "index.html"; $$(".menu a").forEach((l) => l.classList.toggle("active", l.getAttribute("href") === p || (p === "article.html" && l.getAttribute("href") === "blog.html") || (p === "tour.html" && l.getAttribute("href") === "tours.html"))); })();
 
   /* ---------- theme ---------- */
@@ -255,6 +272,28 @@
   ET.observe = () => $$(".reveal:not(.in)").forEach((el) => io.observe(el));
   ET.observe();
   document.addEventListener("et:rendered", ET.observe);
+
+  /* ---------- SEO: structured data ---------- */
+  ET.ld = (obj) => { const s = document.createElement("script"); s.type = "application/ld+json"; s.textContent = JSON.stringify(obj); document.head.appendChild(s); };
+  ET.seo = (() => {
+    const base = "https://emiratestourist.com/";
+    const org = { "@type": "TravelAgency", "@id": base + "#org", name: "Emirates Tourist", url: base, logo: base + "assets/img/logo.webp", image: base + "assets/img/dubai-skyline-sunset.webp",
+      telephone: "+971554439551", email: "info@emiratestourist.com", priceRange: "AED 85 - AED 2,500",
+      address: { "@type": "PostalAddress", addressLocality: "Dubai", addressCountry: "AE" },
+      areaServed: ["Dubai", "Abu Dhabi", "Sharjah", "Ajman", "Umm Al Quwain", "Ras Al Khaimah", "Fujairah", "Al Ain"],
+      availableLanguage: ["English", "Arabic", "Hindi", "Urdu", "Chinese", "Russian"],
+      contactPoint: { "@type": "ContactPoint", telephone: "+971554439551", contactType: "customer service", availableLanguage: ["en", "ar", "hi", "ur", "zh", "ru"], hoursAvailable: "Mo-Su 00:00-23:59" },
+      aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "21480" } };
+    const site = { "@type": "WebSite", "@id": base + "#website", url: base, name: "Emirates Tourist", publisher: { "@id": base + "#org" }, inLanguage: ["en", "ar", "hi", "ur", "zh", "ru"],
+      potentialAction: { "@type": "SearchAction", target: { "@type": "EntryPoint", urlTemplate: base + "tours.html?q={search_term_string}" }, "query-input": "required name=search_term_string" } };
+    ET.ld({ "@context": "https://schema.org", "@graph": [org, site] });
+    let crumbsDone = false;
+    const addCrumbs = () => { if (crumbsDone) return; const links = [...document.querySelectorAll(".crumbs a")]; if (!links.length) return; crumbsDone = true;
+      let tail = document.querySelector(".crumbs").textContent.split("›").pop().trim(); if (!tail || tail === links[links.length - 1].textContent.trim()) tail = (document.querySelector("h1")?.textContent || document.title).trim();
+      ET.ld({ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [...links.map((l) => ({ name: l.textContent.trim(), url: new URL(l.getAttribute("href"), base).href })), { name: tail, url: location.href.split("#")[0] }].map((c, i) => ({ "@type": "ListItem", position: i + 1, name: c.name, item: c.url })) }); };
+    addCrumbs(); document.addEventListener("et:rendered", addCrumbs);
+    return true;
+  })();
 
   /* ---------- query helpers ---------- */
   ET.q = new URLSearchParams(location.search);
