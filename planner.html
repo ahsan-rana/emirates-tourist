@@ -4,7 +4,8 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Smart Trip Planner — Emirates Tourist</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/styles.css?v=2">
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
 <style>.wizard{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}.step{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px;margin-bottom:16px}.step h3{font-family:var(--font-body);font-size:16px;margin-bottom:12px;display:flex;gap:10px;align-items:center}.step h3 span{width:28px;height:28px;border-radius:50%;background:var(--navy);color:var(--gold-2);display:grid;place-items:center;font-size:13px}.opts{display:flex;gap:8px;flex-wrap:wrap}.dayCard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;grid-template-columns:120px 1fr;gap:16px;margin-bottom:12px;box-shadow:var(--shadow)}.dayCard img{width:120px;height:90px;object-fit:cover;border-radius:12px}.dayCard select{border:1px solid var(--line);border-radius:10px;padding:8px;width:100%;background:var(--bg);margin-top:8px}@media(max-width:900px){.wizard{grid-template-columns:1fr}}</style>
 </head>
 <body>
@@ -23,7 +24,7 @@
   </div>
   <div id="out"><div class="itin" style="min-height:300px"><div class="empty"><div class="big">🧞</div><b>Your personalised plan appears here</b><span>Day-by-day, with swaps and a live total.</span></div></div></div>
 </div></section>
-<script src="assets/data.js"></script><script src="assets/app.js"></script>
+<script src="assets/data.js?v=2"></script><script src="assets/app.js?v=2"></script>
 <script>
 (function(){const {$,$$}=ET;let plan=[];
   $("#ints").innerHTML=ET.categories.map(c=>`<span class="chip" data-v="${c.id}">${c.icon} ${c.name}</span>`).join("");

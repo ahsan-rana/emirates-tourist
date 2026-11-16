@@ -4,7 +4,8 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Hotels & Resorts in the UAE — Emirates Tourist</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/styles.css?v=2">
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
 </head>
 <body>
 <section class="page-hero"><div class="container">
@@ -22,7 +23,7 @@
   <div><div class="toolbar"><div><b id="count"></b> <span class="muted">hotels</span></div><select id="sort"><option value="rating">Sort: Guest rating</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option></select></div>
   <div class="grid" id="results" style="grid-template-columns:1fr"></div></div>
 </div></section>
-<script src="assets/data.js"></script><script src="assets/app.js"></script>
+<script src="assets/data.js?v=2"></script><script src="assets/app.js?v=2"></script>
 <script>
 (function(){const {$,$$}=ET;
   $("#fEm").innerHTML=ET.emirates.map(e=>`<label><input type="checkbox" name="em" value="${e.id}" ${ET.q.get("emirate")===e.id?"checked":""}> ${e.name}</label>`).join("");

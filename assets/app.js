@@ -47,7 +47,7 @@
   </div>
   <header class="nav">
     <div class="container">
-      <a class="brand" href="index.html"><span class="logo">ET</span><span>Emirates Tourist<small>Explore the UAE</small></span></a>
+      <a class="brand" href="index.html"><img src="assets/img/logo.webp" alt="Emirates Tourist - سائح الإمارات"></a>
       <nav class="menu">${links.map(([h, t]) => `<a href="${h}" class="${page === h ? "active" : ""}">${t}</a>`).join("")}</nav>
       <div class="actions">
         <div class="cur-toggle"><button data-cur="AED">AED</button><button data-cur="USD">USD</button></div>
@@ -68,7 +68,7 @@
   <footer>
     <div class="container top">
       <div>
-        <a class="brand" href="index.html"><span class="logo">ET</span><span>Emirates Tourist<small>Explore the UAE</small></span></a>
+        <a class="brand" href="index.html"><img src="assets/img/logo.webp" alt="Emirates Tourist - سائح الإمارات"></a>
         <p style="margin-top:16px;font-size:14px;max-width:320px">Licensed UAE destination management company. Tours, hotels, car hire, visas and security services across all seven emirates since 2018.</p>
         <div class="pay"><span>VISA</span><span>MASTERCARD</span><span>APPLE PAY</span><span>TABBY</span><span>PAYPAL</span></div>
       </div>
