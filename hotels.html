@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hotels & Resorts in the UAE — Emirates Tourist</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<section class="page-hero"><div class="container">
+  <div class="crumbs"><a href="index.html">Home</a> › Hotels</div>
+  <h1>Hotels & resorts, from AED 400 to palace suites</h1>
+  <p>Negotiated rates with 300+ properties. Book a hotel with any tour and we sponsor your tourist visa for free.</p>
+</div></section>
+<section class="section" style="padding-top:40px"><div class="container listing">
+  <aside class="filters">
+    <h4>Filters</h4>
+    <div><h4 style="margin-bottom:8px">Emirate</h4><div id="fEm"></div></div>
+    <div><h4 style="margin-bottom:8px">Star rating</h4><label><input type="checkbox" name="st" value="5"> ★★★★★ Luxury</label><label><input type="checkbox" name="st" value="4"> ★★★★ Upscale</label><label><input type="checkbox" name="st" value="3"> ★★★ Smart value</label></div>
+    <div><h4 style="margin-bottom:8px">Max per night: <span id="pl"></span></h4><input type="range" id="fp" min="300" max="3000" step="50" value="3000" style="width:100%;accent-color:var(--navy)"></div>
+  </aside>
+  <div><div class="toolbar"><div><b id="count"></b> <span class="muted">hotels</span></div><select id="sort"><option value="rating">Sort: Guest rating</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option></select></div>
+  <div class="grid" id="results" style="grid-template-columns:1fr"></div></div>
+</div></section>
+<script src="assets/data.js"></script><script src="assets/app.js"></script>
+<script>
+(function(){const {$,$$}=ET;
+  $("#fEm").innerHTML=ET.emirates.map(e=>`<label><input type="checkbox" name="em" value="${e.id}" ${ET.q.get("emirate")===e.id?"checked":""}> ${e.name}</label>`).join("");
+  const render=()=>{const ems=$$("input[name=em]:checked").map(i=>i.value),sts=$$("input[name=st]:checked").map(i=>+i.value),max=+$("#fp").value;$("#pl").textContent=ET.money(max);
+    let l=ET.hotels.filter(h=>(!ems.length||ems.includes(h.emirate))&&(!sts.length||sts.includes(h.stars))&&h.price<=max);const s=$("#sort").value;l.sort((a,b)=>s==="low"?a.price-b.price:s==="high"?b.price-a.price:b.rating-a.rating);
+    $("#count").textContent=l.length;$("#results").innerHTML=l.length?l.map(ET.hotelCard).join(""):`<div class="muted" style="text-align:center;padding:60px">No hotels match. Try a higher budget.</div>`;document.dispatchEvent(new Event("et:rendered"));};
+  $$(".filters input,#sort").forEach(i=>i.addEventListener("input",render));document.addEventListener("et:currency",render);render();
+})();
+</script>
+</body></html>

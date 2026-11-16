@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tours & Experiences in the UAE — Emirates Tourist</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<section class="page-hero"><div class="container">
+  <div class="crumbs"><a href="index.html">Home</a> › Tours & experiences</div>
+  <h1 id="pageTitle">All tours & experiences</h1>
+  <p id="pageSub">Desert safaris, city tours, water sports, culture and family days out across all seven emirates. Instant confirmation and free cancellation up to 24 hours before.</p>
+</div></section>
+
+<section class="section" style="padding-top:40px"><div class="container listing">
+  <aside class="filters">
+    <div style="display:flex;justify-content:space-between;align-items:center"><h4>Filters</h4><button class="chip" id="reset" style="font-size:12px">Reset</button></div>
+    <div><h4 style="margin-bottom:8px">Emirate</h4><div id="fEmirate"></div></div>
+    <div><h4 style="margin-bottom:8px">Activity</h4><div id="fCat"></div></div>
+    <div><h4 style="margin-bottom:8px">Max price per adult: <span id="fPriceLbl"></span></h4><input type="range" id="fPrice" min="100" max="1200" step="50" value="1200" style="width:100%;accent-color:var(--navy)"></div>
+    <div><h4 style="margin-bottom:8px">Features</h4><label><input type="checkbox" id="fPickup"> Hotel pickup included</label><label><input type="checkbox" id="fSale"> On sale</label><label><input type="checkbox" id="fTop"> Rated 4.9+</label></div>
+  </aside>
+  <div>
+    <div class="toolbar"><div><b id="count"></b> <span class="muted">experiences found</span></div><select id="sort"><option value="pop">Sort: Most popular</option><option value="rating">Highest rated</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option></select></div>
+    <div class="results-grid" id="results"></div>
+  </div>
+</div></section>
+
+<script src="assets/data.js"></script><script src="assets/app.js"></script>
+<script>
+(function(){
+  const {$,$$}=ET; const q=ET.q;
+  $("#fEmirate").innerHTML=ET.emirates.map(e=>`<label><input type="checkbox" name="em" value="${e.id}" ${q.get("emirate")===e.id?"checked":""}> ${e.name}</label>`).join("");
+  $("#fCat").innerHTML=ET.categories.map(c=>`<label><input type="checkbox" name="cat" value="${c.id}" ${q.get("cat")===c.id?"checked":""}> ${c.icon} ${c.name}</label>`).join("");
+  if(q.get("emirate")){$("#pageTitle").textContent="Things to do in "+ET.emirateName(q.get("emirate"));$("#pageSub").textContent=(ET.byId(ET.emirates,q.get("emirate"))||{}).blurb||"";}
+  if(q.get("cat")){$("#pageTitle").textContent=ET.catName(q.get("cat"))+" in the UAE";}
+  const render=()=>{
+    const ems=$$("input[name=em]:checked").map(i=>i.value), cats=$$("input[name=cat]:checked").map(i=>i.value), max=+$("#fPrice").value;
+    $("#fPriceLbl").textContent=ET.money(max);
+    let list=ET.tours.filter(t=>(!ems.length||ems.includes(t.emirate))&&(!cats.length||cats.includes(t.cat))&&t.price<=max&&(!$("#fPickup").checked||t.pickup)&&(!$("#fSale").checked||t.was)&&(!$("#fTop").checked||t.rating>=4.9));
+    const s=$("#sort").value; list.sort((a,b)=>s==="rating"?b.rating-a.rating:s==="low"?a.price-b.price:s==="high"?b.price-a.price:b.reviews-a.reviews);
+    $("#count").textContent=list.length; $("#results").innerHTML=list.length?list.map(ET.tourCard).join(""):`<div class="muted" style="grid-column:1/-1;text-align:center;padding:60px">No experiences match these filters. Try widening your search.</div>`;
+    document.dispatchEvent(new Event("et:rendered"));
+  };
+  $$(".filters input, #sort").forEach(i=>i.addEventListener("input",render));
+  $("#reset").onclick=()=>{$$(".filters input[type=checkbox]").forEach(i=>i.checked=false);$("#fPrice").value=1200;render();};
+  document.addEventListener("et:currency",render); render();
+})();
+</script>
+</body></html>

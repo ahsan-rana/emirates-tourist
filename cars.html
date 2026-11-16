@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Car Rental in Dubai & the UAE — Emirates Tourist</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<section class="page-hero"><div class="container">
+  <div class="crumbs"><a href="index.html">Home</a> › Rent a car</div>
+  <h1>Rent a car, delivered to your hotel or the airport</h1>
+  <p>Economy to supercar, with free delivery in Dubai, Sharjah and Ajman. Unlimited mileage, Salik tolls billed at cost, and 24/7 roadside assistance.</p>
+</div></section>
+<section class="section" style="padding-top:40px"><div class="container listing" style="grid-template-columns:1fr 340px">
+  <div>
+    <div class="toolbar"><div style="display:flex;gap:8px;flex-wrap:wrap" id="cls"><span class="chip active" data-c="">All</span><span class="chip" data-c="Economy">Economy</span><span class="chip" data-c="SUV">SUV</span><span class="chip" data-c="Luxury">Luxury</span><span class="chip" data-c="Supercar">Supercar</span><span class="chip" data-c="Van">Van</span><span class="chip" data-c="Electric">Electric</span></div></div>
+    <div class="grid grid-2" id="fleet"></div>
+  </div>
+  <aside class="calc" style="position:sticky;top:96px">
+    <b style="font-size:18px">Instant quote</b><div class="muted" style="font-size:13px">No hidden fees. Deposit refunded within 14 days.</div>
+    <div class="row" style="grid-template-columns:1fr"><div class="field"><label>Vehicle</label><select id="qCar"></select></div></div>
+    <div class="row"><div class="field"><label>Pickup</label><input type="date" id="qFrom"></div><div class="field"><label>Return</label><input type="date" id="qTo"></div></div>
+    <div class="row"><div class="field"><label>Delivery</label><select id="qDel"><option value="0">Our Dubai office (free)</option><option value="0">Hotel in Dubai (free)</option><option value="80">DXB / DWC airport</option><option value="150">Abu Dhabi</option></select></div><div class="field"><label>Insurance</label><select id="qIns"><option value="0">Standard (incl.)</option><option value="45">Full cover, zero excess</option></select></div></div>
+    <label style="display:flex;gap:10px;align-items:center;font-size:14px;margin-top:10px"><input type="checkbox" id="qDriver"> Add a chauffeur (AED 250 / day)</label>
+    <div class="total"><div><small class="muted" id="qDays"></small><br><b id="qTotal"></b></div><button class="btn btn-primary" data-toast="Quote saved. A rental agent will WhatsApp you the contract.">Reserve</button></div>
+  </aside>
+</div></section>
+<script src="assets/data.js"></script><script src="assets/app.js"></script>
+<script>
+(function(){const {$,$$}=ET;
+  const renderFleet=(c="")=>{$("#fleet").innerHTML=ET.cars.filter(x=>!c||x.cls===c).map(ET.carCard).join("");document.dispatchEvent(new Event("et:rendered"));};
+  $$("#cls .chip").forEach(ch=>ch.onclick=()=>{$$("#cls .chip").forEach(x=>x.classList.remove("active"));ch.classList.add("active");renderFleet(ch.dataset.c);});
+  $("#qCar").innerHTML=ET.cars.map(c=>`<option value="${c.id}">${c.name} (${c.cls})</option>`).join("");
+  const d=new Date();$("#qFrom").value=new Date(d.getTime()+86400000).toISOString().slice(0,10);$("#qTo").value=new Date(d.getTime()+4*86400000).toISOString().slice(0,10);
+  const quote=()=>{const c=ET.byId(ET.cars,$("#qCar").value);const days=Math.max(1,Math.round((new Date($("#qTo").value)-new Date($("#qFrom").value))/86400000));
+    const weeks=Math.floor(days/7),rem=days%7;let base=weeks*c.week+Math.min(rem*c.day,c.week);const tot=base+ +$("#qDel").value+ +$("#qIns").value*days+($("#qDriver").checked?250*days:0);
+    $("#qDays").textContent=`${days} day${days>1?"s":""} · ${c.name}${weeks?" · weekly rate applied":""}`;$("#qTotal").textContent=ET.money(tot);};
+  $$("#qCar,#qFrom,#qTo,#qDel,#qIns,#qDriver").forEach(i=>i.addEventListener("input",quote));
+  document.addEventListener("et:currency",()=>{renderFleet($("#cls .chip.active").dataset.c);quote();});renderFleet();quote();
+})();
+</script>
+</body></html>

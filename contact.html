@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact Emirates Tourist — 24/7 Support, Visa Desk & Careers</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<section class="page-hero"><div class="container">
+  <div class="crumbs"><a href="index.html">Home</a> › Contact</div>
+  <h1>Talk to a real person, any hour</h1>
+  <p>Our Dubai team answers WhatsApp in under 5 minutes, day or night, in six languages.</p>
+</div></section>
+<section class="section" style="padding-top:48px"><div class="container contact-grid">
+  <div>
+    <div class="contact-card"><div class="ic">💬</div><div><b>WhatsApp (fastest)</b><br><a href="https://wa.me/971554439551" target="_blank">+971 55 443 9551</a><div class="muted" style="font-size:13px">Replies in under 5 minutes, 24/7</div></div></div>
+    <div class="contact-card"><div class="ic">📞</div><div><b>Call us</b><br><a href="tel:+971554439551">+971 55 443 9551</a><div class="muted" style="font-size:13px">English, Arabic, Hindi, Urdu, Russian, Chinese</div></div></div>
+    <div class="contact-card"><div class="ic">✉️</div><div><b>Email</b><br><a href="mailto:info@emiratestourist.com">info@emiratestourist.com</a><div class="muted" style="font-size:13px">Visa desk: visa@emiratestourist.com</div></div></div>
+    <div class="contact-card"><div class="ic">📍</div><div><b>Offices</b><br>Dubai, United Arab Emirates<br><span class="muted" style="font-size:13px">1207 Delaware Ave #2886, Wilmington, DE 19806, USA</span></div></div>
+    <div class="contact-card" id="careers"><div class="ic">🧑‍✈️</div><div><b>Careers</b><br><span class="muted" style="font-size:14px">We're hiring tour guides (Mandarin, Russian), 4x4 safari drivers and licensed security guards. Send your CV to careers@emiratestourist.com.</span></div></div>
+  </div>
+  <div class="calc">
+    <b style="font-size:20px">Send us a message</b><div class="muted" style="font-size:14px;margin-bottom:14px">Tell us your dates and interests and we'll reply with a tailored quote.</div>
+    <form class="form" id="cf">
+      <div class="row" style="margin:0"><input placeholder="Full name" required><input placeholder="WhatsApp / phone" required></div>
+      <input type="email" placeholder="Email" required>
+      <div class="row" style="margin:0"><select><option>I'm interested in…</option><option>Tours & experiences</option><option>Hotel booking</option><option>Car rental</option><option>Tourist visa</option><option>Group / corporate trip</option><option>Security guard services</option></select><input type="date"></div>
+      <textarea placeholder="Tell us about your trip: dates, group size, must-sees…"></textarea>
+      <button class="btn btn-primary">Send message</button>
+      <div class="muted" style="font-size:12px;text-align:center">By sending you agree to our privacy policy. We never share your details.</div>
+    </form>
+  </div>
+</div></section>
+<script src="assets/data.js"></script><script src="assets/app.js"></script>
+<script>ET.$("#cf").onsubmit=e=>{e.preventDefault();ET.toast("Thanks! A travel planner will reply within the hour.");e.target.reset();};</script>
+</body></html>

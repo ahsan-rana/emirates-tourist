@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Smart Trip Planner — Emirates Tourist</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>.wizard{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}.step{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px;margin-bottom:16px}.step h3{font-family:var(--font-body);font-size:16px;margin-bottom:12px;display:flex;gap:10px;align-items:center}.step h3 span{width:28px;height:28px;border-radius:50%;background:var(--navy);color:var(--gold-2);display:grid;place-items:center;font-size:13px}.opts{display:flex;gap:8px;flex-wrap:wrap}.dayCard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;grid-template-columns:120px 1fr;gap:16px;margin-bottom:12px;box-shadow:var(--shadow)}.dayCard img{width:120px;height:90px;object-fit:cover;border-radius:12px}.dayCard select{border:1px solid var(--line);border-radius:10px;padding:8px;width:100%;background:var(--bg);margin-top:8px}@media(max-width:900px){.wizard{grid-template-columns:1fr}}</style>
+</head>
+<body>
+<section class="page-hero"><div class="container">
+  <div class="crumbs"><a href="index.html">Home</a> › Trip planner</div>
+  <h1>Build your perfect UAE itinerary in 60 seconds</h1>
+  <p>Answer four questions. We rank 140+ experiences by rating, logistics and your budget, then let you swap any day before booking everything in one go.</p>
+</div></section>
+<section class="section" style="padding-top:40px"><div class="container wizard">
+  <div>
+    <div class="step"><h3><span>1</span>How long is your trip?</h3><input type="range" id="days" min="1" max="10" value="5" style="width:100%;accent-color:var(--navy)"><div style="display:flex;justify-content:space-between;font-size:13px" class="muted"><span>1 day</span><b id="daysLbl" style="color:var(--ink)">5 days</b><span>10 days</span></div></div>
+    <div class="step"><h3><span>2</span>What are you into?</h3><div class="opts" id="ints"></div></div>
+    <div class="step"><h3><span>3</span>Budget per day, per person</h3><div class="opts" id="budget"><span class="chip" data-v="value">Value · under AED 300</span><span class="chip active" data-v="mid">Comfort · ~AED 600</span><span class="chip" data-v="premium">Luxury · AED 1,200+</span></div></div>
+    <div class="step"><h3><span>4</span>Where are you staying?</h3><div class="opts" id="base"><span class="chip active" data-v="dubai">Dubai</span><span class="chip" data-v="abu-dhabi">Abu Dhabi</span><span class="chip" data-v="ras-al-khaimah">Ras Al Khaimah</span><span class="chip" data-v="any">Not decided yet</span></div></div>
+    <button class="btn btn-primary" id="go">✨ Generate itinerary</button>
+  </div>
+  <div id="out"><div class="itin" style="min-height:300px"><div class="empty"><div class="big">🧞</div><b>Your personalised plan appears here</b><span>Day-by-day, with swaps and a live total.</span></div></div></div>
+</div></section>
+<script src="assets/data.js"></script><script src="assets/app.js"></script>
+<script>
+(function(){const {$,$$}=ET;let plan=[];
+  $("#ints").innerHTML=ET.categories.map(c=>`<span class="chip" data-v="${c.id}">${c.icon} ${c.name}</span>`).join("");
+  $$("#ints .chip").forEach(c=>c.onclick=()=>c.classList.toggle("active"));
+  ["#budget","#base"].forEach(id=>$$(id+" .chip").forEach(c=>c.onclick=()=>{$$(id+" .chip").forEach(x=>x.classList.remove("active"));c.classList.add("active");}));
+  $("#days").oninput=e=>$("#daysLbl").textContent=e.target.value+" day"+(e.target.value>1?"s":"");
+  const draw=()=>{const total=plan.reduce((s,d)=>s+d.tour.price,0);
+    $("#out").innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><h2 style="font-size:24px">Your ${plan.length}-day itinerary</h2><span class="badge badge-gold">Swap any day</span></div>`+
+      plan.map((d,i)=>`<div class="dayCard reveal in"><img src="${d.tour.img}" alt="" ${ET.imgFallback}><div><div class="muted" style="font-size:12px;font-weight:700;letter-spacing:.1em">DAY ${d.day} · ${ET.emirateName(d.tour.emirate).toUpperCase()}</div><b>${d.tour.title}</b><div class="muted" style="font-size:13px">⏱ ${d.tour.duration} · ⭐ ${d.tour.rating} · ${ET.money(d.tour.price)} pp</div><select data-i="${i}">${ET.tours.map(t=>`<option value="${t.id}" ${t.id===d.tour.id?"selected":""}>${t.title}</option>`).join("")}</select></div></div>`).join("")+
+      `<div class="calc"><div class="total" style="margin:0"><div><small class="muted">Estimated total per person · tours only</small><br><b>${ET.money(total)}</b></div><div style="display:flex;gap:8px"><a class="btn btn-ghost btn-sm" href="https://wa.me/971554439551?text=${encodeURIComponent("Hi! My planned itinerary: "+plan.map(d=>"Day "+d.day+": "+d.tour.title).join("; "))}" target="_blank">Send to WhatsApp</a><button class="btn btn-primary btn-sm" data-toast="All ${plan.length} days reserved. One guide, one confirmation, pay later.">Book all</button></div></div></div>`;
+    $$("#out select").forEach(s=>s.onchange=()=>{plan[+s.dataset.i].tour=ET.byId(ET.tours,s.value);draw();});};
+  $("#go").onclick=()=>{plan=ET.plan({days:+$("#days").value,interests:$$("#ints .chip.active").map(c=>c.dataset.v),budget:$("#budget .chip.active").dataset.v,base:$("#base .chip.active").dataset.v});draw();$("#out").scrollIntoView({behavior:"smooth",block:"start"});};
+  document.addEventListener("et:currency",()=>plan.length&&draw());
+})();
+</script>
+</body></html>

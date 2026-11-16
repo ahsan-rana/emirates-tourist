@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Emirates Tourist — Tours, Desert Safaris, Hotels & Car Rental across the UAE</title>
+<meta name="description" content="Plan and book UAE tours, desert safaris, hotels, car hire and visas with a licensed Dubai-based travel company. Instant confirmation, free cancellation, 24/7 WhatsApp support.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230b1f3a'/><text x='50' y='66' font-size='46' text-anchor='middle' fill='%23c9a24a' font-family='Arial' font-weight='700'>ET</text></svg>">
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="bg"></div><div class="shade"></div>
+  <div class="container">
+    <span class="kicker">✦ Licensed UAE tour operator · Rated 4.9 by 21,000+ travellers</span>
+    <h1>Where every journey becomes an <em>adventure</em></h1>
+    <p>From the top of the Burj Khalifa to the silence of the Empty Quarter: handpicked experiences, hotels and car hire across all seven emirates, booked in minutes with instant confirmation.</p>
+
+    <div class="search" id="search">
+      <div class="tabs">
+        <button class="on" data-tab="tours">🧭 Tours</button><button data-tab="hotels">🏨 Hotels</button><button data-tab="cars">🚗 Cars</button><button data-tab="visa">🛂 Visa</button>
+      </div>
+      <div class="row">
+        <div class="field"><label>Destination</label><select id="sEmirate"><option value="">All emirates</option></select></div>
+        <div class="field"><label>Experience</label><select id="sCat"><option value="">Any activity</option></select></div>
+        <div class="field"><label>Date</label><input type="date" id="sDate"></div>
+        <div class="field"><label>Travellers</label><select id="sPax"><option>1 adult</option><option selected>2 adults</option><option>2 adults, 1 child</option><option>2 adults, 2 children</option><option>Group (6+)</option></select></div>
+        <button class="btn btn-primary" id="sGo">Search →</button>
+      </div>
+      <div class="quick">Popular: <span class="chip" data-go="tours.html?cat=desert">Desert safari</span><span class="chip" data-go="tour.html?id=t2">Burj Khalifa</span><span class="chip" data-go="tours.html?emirate=abu-dhabi">Abu Dhabi day trip</span><span class="chip" data-go="tour.html?id=t4">Jais Flight</span><span class="chip" data-go="tour.html?id=t6">Hot air balloon</span></div>
+    </div>
+
+    <div class="trust">
+      <div><div class="avatars"><span>AT</span><span>JW</span><span>LH</span><span>SS</span></div><span><b>21,480</b>happy travellers</span></div>
+      <div><span><b>4.9 ★</b>Google & Tripadvisor</span></div>
+      <div><span><b>140+</b>experiences, 7 emirates</span></div>
+      <div><span><b>24 h</b>free cancellation</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee"><div class="track" id="marquee"></div></div>
+
+<!-- ===== CATEGORIES ===== -->
+<section class="section" style="padding-bottom:40px">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow">Find your kind of adventure</span><h2 class="h2">What do you want to feel?</h2></div><a class="btn btn-ghost" href="tours.html">Browse all experiences</a></div>
+    <div class="cats" id="cats"></div>
+  </div>
+</section>
+
+<!-- ===== FEATURED TOURS ===== -->
+<section class="section" id="tours">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow">Handpicked for you</span><h2 class="h2">Top-rated experiences this week</h2><p class="lead">Chosen by our guides, verified by thousands of reviews. Prices include VAT, with free cancellation up to 24 hours before.</p></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap" id="tourFilter"><span class="chip active" data-f="">All</span><span class="chip" data-f="dubai">Dubai</span><span class="chip" data-f="abu-dhabi">Abu Dhabi</span><span class="chip" data-f="ras-al-khaimah">RAK</span><span class="chip" data-f="fujairah">Fujairah</span></div></div>
+    <div class="grid grid-4" id="featured"></div>
+    <div style="text-align:center;margin-top:36px"><a class="btn btn-dark" href="tours.html">See all 140+ experiences →</a></div>
+  </div>
+</section>
+
+<!-- ===== PLANNER ===== -->
+<section class="section" id="planner">
+  <div class="container">
+    <div class="planner">
+      <div>
+        <span class="eyebrow">Smart trip planner</span>
+        <h2>Tell us your days and your mood. We'll build the itinerary.</h2>
+        <p style="margin-top:12px">Our planner ranks 140+ experiences by rating, distance and your budget, then books them all at once with a single guide contact for the whole trip.</p>
+        <div class="form">
+          <div><label>How many days? <span id="pDaysLbl">4</span></label><input type="range" id="pDays" min="1" max="10" value="4"></div>
+          <div><label>Interests</label><div class="opts" id="pInterests"></div></div>
+          <div><label>Budget per day</label><div class="opts" id="pBudget"><span class="chip" data-v="value">Value</span><span class="chip active" data-v="mid">Comfort</span><span class="chip" data-v="premium">Luxury</span></div></div>
+          <div><label>Base city</label><div class="opts" id="pBase"><span class="chip active" data-v="dubai">Dubai</span><span class="chip" data-v="abu-dhabi">Abu Dhabi</span><span class="chip" data-v="any">Anywhere</span></div></div>
+          <button class="btn btn-primary" id="pGo" style="justify-self:start">✨ Build my itinerary</button>
+        </div>
+      </div>
+      <div class="itin" id="itin"><div class="empty"><div class="big">🗺️</div><b>Your itinerary will appear here</b><span>Pick a few interests and hit "Build my itinerary".</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DESTINATIONS ===== -->
+<section class="section" id="destinations">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow">Seven emirates, one trip</span><h2 class="h2">Choose your destination</h2></div><a class="btn btn-ghost" href="#map">View on map</a></div>
+    <div class="dest-grid" id="dests"></div>
+  </div>
+</section>
+
+<!-- ===== MAP ===== -->
+<section class="section" id="map-section" style="padding-top:0">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow">Interactive map</span><h2 class="h2">Explore the UAE at a glance</h2></div></div>
+    <div class="map-wrap"><div class="map-list" id="mapList"></div><div id="map"></div></div>
+  </div>
+</section>
+
+<!-- ===== WHY US ===== -->
+<section class="section" style="background:var(--sand)">
+  <div class="container split">
+    <div class="img reveal"><img src="https://images.unsplash.com/photo-1542401886-65d6c61db217?auto=format&fit=crop&w=1000&q=70" alt="Desert dunes at sunset" onerror="this.style.display='none'">
+      <div class="float"><div style="font-size:30px">🛡️</div><div><b>Travel you can trust</b><div class="muted" style="font-size:13px">Licensed by Dubai Economy & Tourism · Fully insured vehicles</div></div></div></div>
+    <div>
+      <span class="eyebrow">Why Emirates Tourist</span>
+      <h2 class="h2">One company for your entire UAE trip</h2>
+      <p class="lead" style="margin-top:12px">We are not a marketplace. Our own guides, drivers and 4x4 fleet run every tour, so you deal with one team from visa to airport drop-off.</p>
+      <div class="feature-list">
+        <div><div class="ic">🛂</div><div><b>Visa sponsorship included</b><p>Tourist visas issued in 3 to 5 working days with any hotel or tour package.</p></div></div>
+        <div><div class="ic">💬</div><div><b>Real humans on WhatsApp, 24/7</b><p>Multilingual support in English, Arabic, Hindi, Urdu, Russian and Chinese.</p></div></div>
+        <div><div class="ic">💸</div><div><b>Best price, honestly</b><p>Found it cheaper? We refund the difference and give you a free dhow cruise.</p></div></div>
+        <div><div class="ic">🚐</div><div><b>Hotel pickup everywhere</b><p>Included on most tours across Dubai, Sharjah, Ajman and Abu Dhabi.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STATS ===== -->
+<section class="section" style="padding-bottom:0">
+  <div class="container stats">
+    <div class="stat reveal"><b data-count="21480">0</b><span>Travellers hosted</span></div>
+    <div class="stat reveal"><b data-count="140">0</b><span>Experiences & tours</span></div>
+    <div class="stat reveal"><b data-count="98">0</b><span>% would recommend</span></div>
+    <div class="stat reveal"><b data-count="7">0</b><span>Emirates covered</span></div>
+  </div>
+</section>
+
+<!-- ===== HOTELS ===== -->
+<section class="section" id="hotels">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow">Stay</span><h2 class="h2">Hotels with the best views and real reviews</h2></div><a class="btn btn-ghost" href="hotels.html">All hotels</a></div>
+    <div class="grid grid-2" id="hotelsGrid"></div>
+  </div>
+</section>
+
+<!-- ===== CARS ===== -->
+<section class="section" id="cars" style="padding-top:0">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow">Drive</span><h2 class="h2">Rent a car, delivered to your hotel</h2></div><a class="btn btn-ghost" href="cars.html">Full fleet & quote</a></div>
+    <div class="grid grid-3" id="carsGrid"></div>
+  </div>
+</section>
+
+<!-- ===== GUIDE ===== -->
+<section class="section" id="guide" style="background:var(--sand)">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow">Travel guide</span><h2 class="h2">Know before you go</h2></div><a class="btn btn-ghost" href="guide.html">Full UAE guide</a></div>
+    <div class="grid grid-2" style="align-items:start">
+      <div class="weather reveal">
+        <b>Average high temperature by month (°C)</b><div class="muted" style="font-size:13px">Green = best months to visit</div>
+        <div class="bars" id="weatherBars"></div><div class="labels" id="weatherLabels"></div>
+      </div>
+      <div class="guide-grid" style="grid-template-columns:1fr 1fr" id="essentials"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REVIEWS ===== -->
+<section class="section" id="reviews">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow">Reviews</span><h2 class="h2">Loved by travellers from 90+ countries</h2></div><div class="muted">⭐ 4.9 average · Google, Tripadvisor & GetYourGuide</div></div>
+    <div class="reviews" id="reviewsRow"></div>
+  </div>
+</section>
+
+<!-- ===== BLOG ===== -->
+<section class="section" id="blog" style="padding-top:0">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow">Blog & updates</span><h2 class="h2">Latest guides and news</h2></div></div>
+    <div class="grid grid-4" id="posts"></div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="section" style="padding-top:0">
+  <div class="container"><div class="cta reveal">
+    <span class="eyebrow" style="color:var(--gold-2)">Deals straight to your inbox</span>
+    <h2>Get 10% off your first booking</h2>
+    <p style="color:#dde5f0;margin-top:10px">Seasonal offers, new experiences and insider tips. No spam, unsubscribe anytime.</p>
+    <form id="newsForm"><input type="email" placeholder="you@email.com" required><button class="btn btn-primary">Get my code</button></form>
+  </div></div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+<script>
+(function(){
+  const {$, $$} = ET;
+  const go = (u)=>location.href=u;
+
+  /* search */
+  ET.emirates.forEach(e=>$("#sEmirate").insertAdjacentHTML("beforeend",`<option value="${e.id}">${e.name}</option>`));
+  ET.categories.forEach(c=>$("#sCat").insertAdjacentHTML("beforeend",`<option value="${c.id}">${c.name}</option>`));
+  $("#sDate").value = new Date(Date.now()+86400000).toISOString().slice(0,10);
+  let tab="tours";
+  $$(".search .tabs button").forEach(b=>b.onclick=()=>{$$(".search .tabs button").forEach(x=>x.classList.remove("on"));b.classList.add("on");tab=b.dataset.tab;});
+  $("#sGo").onclick=()=>{
+    const p=new URLSearchParams(); if($("#sEmirate").value)p.set("emirate",$("#sEmirate").value); if($("#sCat").value)p.set("cat",$("#sCat").value); p.set("date",$("#sDate").value);
+    go(({tours:"tours.html",hotels:"hotels.html",cars:"cars.html",visa:"guide.html#visa"})[tab]+(tab==="visa"?"":"?"+p));
+  };
+  $$("[data-go]").forEach(c=>c.onclick=()=>go(c.dataset.go));
+
+  /* marquee */
+  const items=["🔥 Red Dune Safari from AED 180","🎈 Hot-air balloon flights resume 1 Nov","🛂 Visa on arrival now 90 days for 100+ nationalities","🎢 Ferrari World + WB World combo, save 19%","🛥️ Sunset yacht cruise, kids go free this month","🏔️ Jais Flight: world's longest zipline"];
+  $("#marquee").innerHTML=[...items,...items].map(i=>`<span>${i}</span>`).join("");
+
+  /* categories */
+  $("#cats").innerHTML=ET.categories.map(c=>`<a class="cat reveal" href="tours.html?cat=${c.id}"><div class="ic">${c.icon}</div><b>${c.name}</b><small class="muted">${ET.tours.filter(t=>t.cat===c.id).length*6} tours</small></a>`).join("");
+
+  /* featured tours */
+  const renderFeatured=(f="")=>{const list=ET.tours.filter(t=>!f||t.emirate===f).slice(0,8);$("#featured").innerHTML=list.map(ET.tourCard).join("");document.dispatchEvent(new Event("et:rendered"));};
+  renderFeatured();
+  $$("#tourFilter .chip").forEach(c=>c.onclick=()=>{$$("#tourFilter .chip").forEach(x=>x.classList.remove("active"));c.classList.add("active");renderFeatured(c.dataset.f);});
+
+  /* planner */
+  $("#pInterests").innerHTML=ET.categories.map(c=>`<span class="chip" data-v="${c.id}">${c.icon} ${c.name}</span>`).join("");
+  $("#pDays").oninput=e=>$("#pDaysLbl").textContent=e.target.value;
+  $$("#pInterests .chip").forEach(c=>c.onclick=()=>c.classList.toggle("active"));
+  ["#pBudget","#pBase"].forEach(id=>$$(id+" .chip").forEach(c=>c.onclick=()=>{$$(id+" .chip").forEach(x=>x.classList.remove("active"));c.classList.add("active");}));
+  const renderPlan=()=>{
+    const days=+$("#pDays").value, interests=$$("#pInterests .chip.active").map(c=>c.dataset.v), budget=$("#pBudget .chip.active").dataset.v, base=$("#pBase .chip.active").dataset.v;
+    const plan=ET.plan({days,interests,budget,base}); const total=plan.reduce((s,d)=>s+d.tour.price,0);
+    $("#itin").innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><b>Your ${days}-day UAE itinerary</b><span class="badge badge-gold">AI-ranked</span></div>`+
+      plan.map(d=>`<div class="day"><div class="n"><small>Day</small>${d.day}</div><div><h4>${d.tour.title}</h4><ul><li>${ET.emirateName(d.tour.emirate)} · ${d.tour.duration} · ⭐ ${d.tour.rating}</li><li>${d.extra}</li></ul></div></div>`).join("")+
+      `<div class="total"><div><small class="muted">Estimated per person</small><br><b style="font-family:var(--font-head);font-size:24px">${ET.money(total)}</b></div><div style="display:flex;gap:8px"><a class="btn btn-ghost btn-sm" href="planner.html">Customise</a><button class="btn btn-primary btn-sm" data-toast="Itinerary sent to WhatsApp. A planner will confirm within 15 minutes.">Book all</button></div></div>`;
+  };
+  $("#pGo").onclick=renderPlan;
+
+  /* destinations */
+  $("#dests").innerHTML=ET.emirates.slice(0,7).map((e,i)=>`<a class="dest reveal ${i===0?"big":""}" href="tours.html?emirate=${e.id}"><img src="${e.img}" alt="${e.name}" loading="lazy" onerror="this.style.display='none'"><span class="badge badge-white count">${e.tours} tours</span><div><h3>${e.name}</h3><p>${e.tagline}</p></div></a>`).join("");
+
+  /* map */
+  const map=L.map("map",{scrollWheelZoom:false}).setView([24.9,55.1],7);
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"© OpenStreetMap contributors",maxZoom:18}).addTo(map);
+  const markers={};
+  ET.emirates.forEach(e=>{const m=L.circleMarker([e.lat,e.lng],{radius:10,color:"#0b1f3a",fillColor:"#c9a24a",fillOpacity:.95,weight:2}).addTo(map).bindPopup(`<b style="font-family:Georgia">${e.name}</b><br>${e.tagline}<br><a href="tours.html?emirate=${e.id}">${e.tours} tours →</a>`);markers[e.id]=m;});
+  $("#mapList").innerHTML=ET.emirates.map(e=>`<button data-e="${e.id}"><div><b>${e.name}</b><small>${e.tagline}</small></div><span class="badge badge-gold">${e.tours}</span></button>`).join("");
+  $$("#mapList button").forEach(b=>b.onclick=()=>{$$("#mapList button").forEach(x=>x.classList.remove("on"));b.classList.add("on");const e=ET.byId(ET.emirates,b.dataset.e);map.flyTo([e.lat,e.lng],10,{duration:1.2});markers[e.id].openPopup();});
+
+  /* counters */
+  const cio=new IntersectionObserver(es=>es.forEach(en=>{if(!en.isIntersecting)return;const el=en.target,end=+el.dataset.count,t0=performance.now();const step=n=>{const p=Math.min(1,(n-t0)/1400);el.textContent=Math.round(end*(1-Math.pow(1-p,3))).toLocaleString();if(p<1)requestAnimationFrame(step);};requestAnimationFrame(step);cio.unobserve(el);}));
+  $$("[data-count]").forEach(el=>cio.observe(el));
+
+  /* hotels, cars, guide, reviews, posts */
+  const renderAll=()=>{
+    $("#hotelsGrid").innerHTML=ET.hotels.slice(0,4).map(ET.hotelCard).join("");
+    $("#carsGrid").innerHTML=ET.cars.slice(0,3).map(ET.carCard).join("");
+    $("#posts").innerHTML=ET.posts.map(ET.postCard).join("");
+    $("#reviewsRow").innerHTML=ET.reviews.map(ET.reviewCard).join("");
+    document.dispatchEvent(new Event("et:rendered"));
+  };
+  renderAll();
+  const w=ET.guide.weather;$("#weatherBars").innerHTML=w.map(m=>`<div class="bar ${m.hi<=30?"best":""}" style="height:${(m.hi-10)*3.6}%"><span>${m.hi}°</span></div>`).join("");$("#weatherLabels").innerHTML=w.map(m=>`<span>${m.m}</span>`).join("");
+  $("#essentials").innerHTML=ET.guide.essentials.slice(0,4).map(e=>`<div class="guide-card reveal"><div class="ic">${e.icon}</div><b>${e.title}</b><p>${e.text}</p></div>`).join("");
+  $("#newsForm").onsubmit=e=>{e.preventDefault();ET.toast("Welcome aboard! Your code WELCOME10 is on its way.");e.target.reset();};
+
+  document.addEventListener("et:currency",()=>{renderFeatured($("#tourFilter .chip.active").dataset.f);renderAll();if($("#itin .day"))renderPlan();});
+  document.dispatchEvent(new Event("et:rendered"));
+})();
+</script>
+</body>
+</html>

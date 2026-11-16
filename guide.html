@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UAE Travel Guide: Visa, Weather, Money & Etiquette — Emirates Tourist</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>.faq details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-bottom:10px}.faq summary{font-weight:700;cursor:pointer}.faq p{margin-top:10px;color:var(--muted);font-size:14.5px}.visa-table{width:100%;border-collapse:collapse;font-size:14px;background:var(--card);border-radius:var(--r);overflow:hidden}.visa-table th,.visa-table td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left}.visa-table th{background:var(--sand);font-size:12px;letter-spacing:.1em;text-transform:uppercase}</style>
+</head>
+<body>
+<section class="page-hero"><div class="container">
+  <div class="crumbs"><a href="index.html">Home</a> › Travel guide</div>
+  <h1>The UAE travel guide, written by locals</h1>
+  <p>Everything first-time visitors ask us: visas, the best months, money, dress code, transport and what to skip.</p>
+</div></section>
+
+<section class="section" style="padding-top:48px"><div class="container">
+  <div class="section-head"><div><span class="eyebrow">Essentials</span><h2 class="h2">Know before you go</h2></div></div>
+  <div class="guide-grid" id="ess"></div>
+</div></section>
+
+<section class="section" style="padding-top:0" id="visa"><div class="container">
+  <div class="section-head"><div><span class="eyebrow">Visa</span><h2 class="h2">Do I need a visa?</h2><p class="lead">We sponsor tourist visas for guests who book a hotel or tour package. Typical processing: 3 to 5 working days.</p></div><a class="btn btn-primary" href="contact.html">Apply with us</a></div>
+  <table class="visa-table"><thead><tr><th>Travellers from</th><th>Entry</th><th>Stay</th><th>Our fee</th></tr></thead><tbody>
+    <tr><td>GCC countries</td><td>No visa required</td><td>Unlimited</td><td>—</td></tr>
+    <tr><td>UK, EU, USA, Canada, Australia, Japan, Singapore, Malaysia and 70+ more</td><td>Visa on arrival</td><td>30 or 90 days</td><td>—</td></tr>
+    <tr><td>India (with valid US/UK/EU visa or green card)</td><td>Visa on arrival</td><td>14 days</td><td>—</td></tr>
+    <tr><td>Pakistan, India, Bangladesh, Nigeria, Egypt, Philippines and others</td><td>Pre-arranged e-visa</td><td>30 or 60 days, single or multi-entry</td><td>From AED 350</td></tr>
+  </tbody></table>
+  <p class="muted" style="font-size:13px;margin-top:10px">Rules change often. Always confirm with the UAE Federal Authority for Identity and Citizenship or with our visa desk before travelling.</p>
+</div></section>
+
+<section class="section" style="background:var(--sand)"><div class="container grid grid-2" style="align-items:start">
+  <div class="weather"><b>When to visit: average high (°C)</b><div class="muted" style="font-size:13px">Green = pleasant, 20 to 30°C. Summer is hot but indoor attractions and hotel rates are at their best.</div><div class="bars" id="wb"></div><div class="labels" id="wl"></div></div>
+  <div class="faq" id="faq"></div>
+</div></section>
+
+<section class="section"><div class="container">
+  <div class="section-head"><div><span class="eyebrow">Read more</span><h2 class="h2">From the blog</h2></div></div>
+  <div class="grid grid-4" id="posts"></div>
+</div></section>
+
+<script src="assets/data.js"></script><script src="assets/app.js"></script>
+<script>
+(function(){const {$}=ET;
+  $("#ess").innerHTML=ET.guide.essentials.map(e=>`<div class="guide-card reveal"><div class="ic">${e.icon}</div><b>${e.title}</b><p>${e.text}</p></div>`).join("");
+  const w=ET.guide.weather;$("#wb").innerHTML=w.map(m=>`<div class="bar ${m.hi<=30?"best":""}" style="height:${(m.hi-10)*3.6}%"><span>${m.hi}°</span></div>`).join("");$("#wl").innerHTML=w.map(m=>`<span>${m.m}</span>`).join("");
+  const faq=[["Is the UAE safe for solo and female travellers?","Yes. The UAE consistently ranks among the safest countries in the world. Solo female travellers can use taxis, the metro's women-only carriages and walk freely in tourist areas at night."],["Can I drink alcohol?","Yes, in licensed hotels, bars and restaurants in Dubai, Abu Dhabi and most emirates. Sharjah is dry. Never drink in public places or drive after drinking."],["What should I wear?","Light, breathable clothing. Beachwear is for beaches and pools only. Cover shoulders and knees in malls, old town areas and mosques, where women also cover their hair (abayas are loaned free)."],["Is Ramadan a bad time to visit?","Not at all. Hotels and many restaurants serve food during the day, and the iftar tents and night markets are a highlight. Just be respectful about eating in public before sunset."],["How much should I tip?","Tipping is appreciated but not required. 10% in restaurants, AED 5 to 10 for drivers and porters, and AED 50 to 100 for a full-day guide is generous."]];
+  $("#faq").innerHTML=faq.map(([q,a],i)=>`<details ${i===0?"open":""}><summary>${q}</summary><p>${a}</p></details>`).join("");
+  $("#posts").innerHTML=ET.posts.map(ET.postCard).join("");document.dispatchEvent(new Event("et:rendered"));
+})();
+</script>
+</body></html>
